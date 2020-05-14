@@ -6,7 +6,7 @@
     </head>
     <body>
         <nav id="navbar">
-            <a id="nav-header" href="index.html">Samiha Datta</a>
+            <div id="nav-header" onclick="navigateToSectionWithId('home')">Samiha Datta</div>
             <ul>
                 <li class="nav-item" onclick="navigateToNewSection(event)" id="home-tab">Home</li>
                 <li class="nav-item" onclick="navigateToNewSection(event)" id="projects-tab">Projects</li>
@@ -15,16 +15,16 @@
             </ul>
         </nav>
 
-        <div id="home" class="section">
+        <div id="home" class="section selected">
             <h1>Hey there!</h1>
             <h2>My name is Samiha Datta. I'm a '23 at Dartmouth College from Newton, Massachusetts.</h2>
             <h2>Want to learn more about me? Check out some of my stuff!</h2>
-            <div>Projects</div>
-            <div>Interests</div>
-            <div>Contact Me</div>
+            <div onclick="navigateToSectionWithId('projects')">Projects</div>
+            <div onclick="navigateToSectionWithId('interests')">Interests</div>
+            <div onclick="navigateToSectionWithId('contact')">Contact Me</div>
         </div>
 
-        <div id="projects" class="section">
+        <div id="projects" class="section unselected">
             <h1 class="section-header">Projects</h1>
             <div class="section-info">
                 <div class="project">
@@ -92,8 +92,8 @@
             </div>
         </div>
 
-        <div id="interests" class="section">
-            <h1 class="section-header"></h1>
+        <div id="interests" class="section unselected">
+            <h1 class="section-header">Interests</h1>
             <div class="section-info">
                 <div class="interest">
                     <h2 class="interest-header">Dance</h2>
@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <div id="contact" class="section">
+        <div id="contact" class="section unselected">
             <h1 class="section-header">Contact Me</h1>
             <div class="section-info">
                 <h2>Want to learn more? Find me here</h2>
