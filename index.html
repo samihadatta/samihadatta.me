@@ -2,16 +2,132 @@
 <html>
     <head>
         <title>Samiha Datta</title>
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <div id="overview" class="section">
+        <nav id="navbar">
+            <a id="nav-header" href="index.html">Samiha Datta</a>
+            <ul>
+                <li class="nav-item" onclick="navigateToNewSection(event)" id="home-tab">Home</li>
+                <li class="nav-item" onclick="navigateToNewSection(event)" id="projects-tab">Projects</li>
+                <li class="nav-item" onclick="navigateToNewSection(event)" id="interests-tab">Interests</li>
+                <li class="nav-item" onclick="navigateToNewSection(event)" id="contact-tab">Contact</li>
+            </ul>
+        </nav>
 
+        <div id="home" class="section">
+            <h1>Hey there!</h1>
+            <h2>My name is Samiha Datta. I'm a '23 at Dartmouth College from Newton, Massachusetts.</h2>
+            <h2>Want to learn more about me? Check out some of my stuff!</h2>
+            <div>Projects</div>
+            <div>Interests</div>
+            <div>Contact Me</div>
         </div>
-        <div id="projects">
 
+        <div id="projects" class="section">
+            <h1 class="section-header">Projects</h1>
+            <div class="section-info">
+                <div class="project">
+                    <h2 class="project-header">FINEance</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">December 2019 - present</h3>
+                        <h3 class="tech">React Native, React</h3>
+                        <p>Through the Women in Science Project and the DALI Lab, I'm working on an app and website to help Dartmouth students learn about personal finance by guiding them through the meal plan system, which is analogous to personal finance in the real world.</p>
+                    </div>
+                </div>
+                
+                <div class="project">
+                    <h2 class="project-header">GreenTrace</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">May 2020 - present</h3>
+                        <h3 class="tech">React Native, React</h3>
+                        <p>In light of the COVID-19 pandemic, I'm currently working on a mobile application to help with contact tracing at Dartmouth College.</p>
+                    </div>
+                </div>
+    
+                <div class="project">
+                    <h2 class="project-header">IPA Picker</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">April 2020 - present</h3>
+                        <h3 class="tech">HTML, CSS, JavaScript</h3>
+                        <p>I'm extremely interested in linguistics. In this subject, it's very common to create phonetic transcriptions, or phonetic representations, of words or sentences. However, I've found that I'm frustrated by the IPA pickers (which allow individuals to access characters not found in the English alphabet) that currently exist, so I thought I'd try to design my own!</p>
+                    </div>
+                </div>
+    
+                <div class="project">
+                    <h2 class="project-header">Tiny Search Engine</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">February 2020</h3>
+                        <h3 class="tech">C</h3>
+                        <p>I programmed a functioning command-line search engine in C consisting of a crawler, an indexer, and a querier (the latter of which implements keyword matching to rank pages from the search).</p>
+                    </div>
+                 </div>
+    
+                <div class="project">
+                    <h2 class="project-header">Blog</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">February 2020</h3>
+                        <h3 class="tech">C</h3>
+                        <p>I programmed a functioning command-line search engine in C consisting of a crawler, an indexer, and a querier (the latter of which implements keyword matching to rank pages from the search).</p>
+                    </div>
+                </div>
+    
+                <div class="project">
+                    <h2 class="project-header">Notes</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">April 2020</h3>
+                        <h3 class="tech">React, Firebase</h3>
+                        <p>I created a collaborative note board with real-time editing, featuring optional authentication and the ability to create, update, and delete posts.</p>
+                    </div>
+                </div>
+    
+                <div class="project">
+                    <h2 class="project-header">Mudras</h2>
+                    <div class="project-info">
+                        <h3 class="timeline">March 2019 - June 2019</h3>
+                        <h3 class="tech">Swift</h3>
+                        <p>I created an application in Swift to teach students of Indian classical dance the hand gestures (mudras) present in the art forms.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="about-me">
-            
+
+        <div id="interests" class="section">
+            <h1 class="section-header"></h1>
+            <div class="section-info">
+                <div class="interest">
+                    <h2 class="interest-header">Dance</h2>
+                    <div class="interest-info">
+                        <p>I've been dancing since 2007! I'm trained in three styles of Indian classical dance (Bharatanatyam, Kuchipudi, and Odissi) and while in high school, I taught other students and completed my arangetram, or artistic debut. I'm currently a member of Dartmouth's South Asian fusion dance team, Raaz! You can check out a landing page I made for us here: <a>GitHub link</a></p>
+                    </div>
+                </div>
+
+                <div class="interest">
+                    <h2 class="interest-header">Global Issues</h2>
+                    <div class="interest-info">
+                        <p>I'm extremely interested in global issues and social justice! In high school, I was extremely involved in social justice organizations, and now at Dartmouth, I'm in the Great Issues Scholars cohort of the class of 2023.</p>
+                    </div>
+                </div>
+
+                <div class="interest">
+                    <h2 class="interest-header">Writing</h2>
+                    <div class="interest-info">
+                        <p>I love writing!</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div id="contact" class="section">
+            <h1 class="section-header">Contact Me</h1>
+            <div class="section-info">
+                <h2>Want to learn more? Find me here</h2>
+                <a>LinkedIn</a>
+                <a>GitHub</a>
+                <a>Email Me</a>
+            </div>
+        </div>
+
+        <script src="main.js"></script>
     </body>
 </html>
