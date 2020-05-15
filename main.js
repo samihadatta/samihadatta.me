@@ -2,6 +2,12 @@ const ADJUSTMENT_CLASSES = ["selected", "unselected"];
 const SECTION_CLASSES = ["home", "projects", "interests", "contact"];
 
 function navigateToSectionWithId(sectionId) {
+    const url = "/"+sectionId;
+    history.pushState(
+        { id: sectionId },
+        sectionId,
+        url
+    )
     // set all other sections to unselected
     var sections = document.getElementsByClassName("section");
     for (var i = 0; i < sections.length; i++ ) {
@@ -65,3 +71,5 @@ function isSectionClass(className) {
     }
     return false;
 }
+
+
