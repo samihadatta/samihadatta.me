@@ -106,8 +106,8 @@ let route = (path, template) => {
 template('home', () => {
     let myDiv = document.getElementById("home");
     myDiv.innerHTML = "";
-    const link1 = createLink('view1', 'Go to view1', '#/view1');
-    const link2 = createLink('view2', 'Go to view2', '#/view2');
+    const link1 = createLink('view1', 'Go to view1', '/projects');
+    const link2 = createLink('view2', 'Go to view2', '/view2');
     myDiv.appendChild(link1);
     return myDiv.appendChild(link2);
     return document.getElementById("home");
