@@ -161,9 +161,9 @@ let resolveRoute = (route) => {
 // The actual router, get the current URL and generate the corresponding template
 let router = (evt) => {
     const url = window.location.hash.slice(1) || "/";
-    // const routeResolved = resolveRoute(url);
-    // routeResolved();
-    resolveRoute(url);
+    const routeResolved = resolveRoute(url);
+    routeResolved();
+    // resolveRoute(url);
 };
 // For first load or when routes are changed in browser url box.
 window.addEventListener('load', router);
