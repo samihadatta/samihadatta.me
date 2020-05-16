@@ -3,14 +3,27 @@
     <head>
         <title>Samiha Datta</title>
         <link rel="stylesheet" href="./style.css">
+        <script>
+            (function(){
+              var redirect = sessionStorage.redirect;
+              delete sessionStorage.redirect;
+              if (redirect && redirect != location.href) {
+                history.replaceState(null, null, redirect);
+              }
+            })();
+          </script>
         <script src="https://kit.fontawesome.com/e61b8cbdb0.js" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div></div>
+        <div id="app">
             <nav id="navbar">
-                <div id="nav-header" onclick="navigateToSectionWithId('home')">Samiha Datta</div>
-                <ul>
+                <div id="nav-header-container">
+                    <label id="hamburger" for="toggle">&#9776</label>
+                    <div id="nav-header" onclick="navigateToSectionWithId('home')">Samiha Datta</div>
+                </div>
+                <input type="checkbox" id="toggle"/>
+                <ul id="nav-items">
                     <li class="nav-item" onclick="navigateToNewSection(event)" id="home-tab">Home</li>
                     <li class="nav-item" onclick="navigateToNewSection(event)" id="projects-tab">Projects</li>
                     <li class="nav-item" onclick="navigateToNewSection(event)" id="interests-tab">Interests</li>
@@ -37,7 +50,7 @@
                         <div class="project-info">
                             <h3 class="timeline">December 2019 - present</h3>
                             <h3 class="tech">React Native, React</h3>
-                            <p>Through the Women in Science Project and the DALI Lab, I'm working on an app and website to help Dartmouth students learn about personal finance by guiding them through the meal plan system, which is analogous to personal finance in the real world.</p>
+                            <p>An app and website to educate Dartmouth students on personal finance by meal plan management guidance. Features real-time updating through Dartmouth ITC. A collaboration between the Women in Science Project and the DALI Lab.</p>
                         </div>
                     </div>
                     
@@ -46,7 +59,7 @@
                         <div class="project-info">
                             <h3 class="timeline">May 2020 - present</h3>
                             <h3 class="tech">React Native, React</h3>
-                            <p>In light of the COVID-19 pandemic, I'm currently working on a mobile application to help with contact tracing at Dartmouth College.</p>
+                            <p>Contact tracing and notification system for Dartmouth College. Final project for CS52: Full-Stack Web Development.</p>
                         </div>
                     </div>
         
@@ -55,25 +68,16 @@
                         <div class="project-info">
                             <h3 class="timeline">April 2020 - present</h3>
                             <h3 class="tech">HTML, CSS, JavaScript</h3>
-                            <p>I'm extremely interested in linguistics. In this subject, it's very common to create phonetic transcriptions, or phonetic representations, of words or sentences. However, I've found that I'm frustrated by the IPA pickers (which allow individuals to access characters not found in the English alphabet) that currently exist, so I thought I'd try to design my own!</p>
+                            <p>International Phonetic Alphabet character picker for phonetic transcription. Useful for linguistics.</p>
                         </div>
                     </div>
-        
+
                     <div class="project">
-                        <h2 class="project-header">Tiny Search Engine</h2>
-                        <div class="project-info">
-                            <h3 class="timeline">February 2020</h3>
-                            <h3 class="tech">C</h3>
-                            <p>I programmed a functioning command-line search engine in C consisting of a crawler, an indexer, and a querier (the latter of which implements keyword matching to rank pages from the search).</p>
-                        </div>
-                    </div>
-        
-                    <div class="project">
-                        <h2 class="project-header">Blog</h2>
+                        <h2 class="project-header">Full-Stack Blog</h2>
                         <div class="project-info">
                             <h3 class="timeline">February 2020</h3>
                             <h3 class="tech">React, Redux, Express, MongoDB</h3>
-                            <p>I programmed a functioning command-line search engine in C consisting of a crawler, an indexer, and a querier (the latter of which implements keyword matching to rank pages from the search).</p>
+                            <p>Full-stack blog created with React, Redux, Express, and MongoDB. Includes comments, search functionality, and authentication. Created for CS52: Full-Stack Web Development.</p>
                         </div>
                     </div>
         
@@ -82,7 +86,16 @@
                         <div class="project-info">
                             <h3 class="timeline">April 2020</h3>
                             <h3 class="tech">React, Firebase</h3>
-                            <p>I created a collaborative note board with real-time editing, featuring optional authentication and the ability to create, update, and delete posts.</p>
+                            <p>Collaborative note board featuring real-time editing, optional authentication, and the ability to create, update, and delete posts. Created for CS52: Full-Stack Web Development.</p>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <h2 class="project-header">Tiny Search Engine</h2>
+                        <div class="project-info">
+                            <h3 class="timeline">February 2020</h3>
+                            <h3 class="tech">C</h3>
+                            <p>Command-line search engine in C. Consists of a crawler, an indexer, and a querier (using keyword matching to rank pages). Created for CS50: Software Design and Implementation.</p>
                         </div>
                     </div>
         
@@ -91,7 +104,7 @@
                         <div class="project-info">
                             <h3 class="timeline">March 2019 - June 2019</h3>
                             <h3 class="tech">Swift</h3>
-                            <p>I created an application in Swift to teach students of Indian classical dance the hand gestures (mudras) present in the art forms.</p>
+                            <p>iOS application to teach Indian classical dance students necessary hand gestures (mudras).</p>
                         </div>
                     </div>
                 </div>

@@ -27,28 +27,34 @@ let route = (path, template) => {
     }
 };
 // Register the templates.
-template('template1', () => {
-    let myDiv = document.getElementById(appDiv);
+template('home', () => {
+    let myDiv = document.getElementById("home");
     myDiv.innerHTML = "";
     const link1 = createLink('view1', 'Go to view1', '#/view1');
     const link2 = createLink('view2', 'Go to view2', '#/view2');
     myDiv.appendChild(link1);
     return myDiv.appendChild(link2);
 });
-template('template-view1', () => {
+template('projects', () => {
     let myDiv = document.getElementById(appDiv);
     myDiv.innerHTML = "";
     const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
     return myDiv.appendChild(link1);
 });
-template('template-view2', () => {
+template('interests', () => {
+    let myDiv = document.getElementById(appDiv);
+    myDiv.innerHTML = "";
+    const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
+    return myDiv.appendChild(link2);
+});
+template('contact', () => {
     let myDiv = document.getElementById(appDiv);
     myDiv.innerHTML = "";
     const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
     return myDiv.appendChild(link2);
 });
 // Define the mappings route->template.
-route('/', 'template1');
+route('/', 'home');
 route('/view1', 'template-view1');
 route('/view2', 'template-view2');
 // Generate DOM tree from a string

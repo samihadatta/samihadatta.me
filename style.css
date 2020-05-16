@@ -30,6 +30,19 @@ a {
     text-decoration: none;
 }
 
+#hamburger {
+    margin: 0 40 px 0 0;
+    font-size: 26px;
+    line-height: 70px;
+    display: none;
+    z-index: 100;
+    color: white;
+}
+
+#toggle {
+    display: none;
+}
+
 .tech, .timeline {
     font-style: italic;
 }
@@ -87,6 +100,59 @@ a {
     width: 80%;
 }
 
-.project {
+/* .project {
     
+} */
+
+
+@media only screen and (max-width: 640px) {
+    #hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    #navbar {
+        flex-direction: column;
+        height: 100%;
+        padding: none;
+        width: 100%;
+    }
+
+    #nav-head-container > input[type=checkbox]:checked + #nav-items-v {
+        display: flex;
+    }
+
+    #toggle:checked + #nav-items-v {
+        display: flex;
+    }
+}
+
+/* for hamburger menu */
+@media only screen and (min-width: 640px) {
+    #nav-items-h {
+        display: flex;
+    }
+
+    #nav-items-v {
+        display: none;
+    }
+}
+
+/* for footer and home section */
+@media only screen and (max-width: 850px) {
+    #footer {
+        flex-direction: column;
+        align-items: center;
+    }
+    #back-to-top {
+        height: 0px;
+        visibility: hidden;
+    }
+    #policies > a {
+        text-align: center;
+    }
+    #home > .description {
+        /* background-color: rgba(201, 255, 25, 0.12); */
+        background-color: rgba(255, 255, 255, 0.12);
+    }
 }

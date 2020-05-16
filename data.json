@@ -1,0 +1,71 @@
+{
+    "title": "Samiha Datta",
+    "links": [
+        {
+            "title": "Projects",
+            "link": "/projects"
+        },
+        {
+            "title": "Work",
+            "link": "/work"
+        },
+        {
+            "title": "About",
+            "link": "/about"
+        }
+    ],
+    "sections": [
+        {
+            "id": "projects",
+            "header" : "Projects",
+            "link": "/projects",
+            "style": {
+                "item": "project",
+                "type": "items"
+            },
+            "items" : [
+                {
+                    "title": "FINEance",
+                    "timeline": "December 2019 - present",
+                    "tech": "React Native, React",
+                    "description": "An app and website to educate Dartmouth students on personal finance by meal plan management guidance. Features real-time updating through Dartmouth ITC. A collaboration between the Women in Science Project and the DALI Lab.",
+                    "image": "oops"
+                },
+                {
+                    "title": "GreenTrace",
+                    "timeline": "May 2020 - present",
+                    "tech": "React Native, React",
+                    "description": "Contact tracing and notification system for Dartmouth College. Final project for CS52: Full-Stack Web Development."
+                }
+            ]
+        },
+        {
+            "id": "home",
+            "header": "Hey there!",
+            "link": "/",
+            "style": {
+                "item": "home-button",
+                "type": "description image links"
+            },
+            "sub-header": "I'm Samiha! I'm a '23 at Dartmouth College from Newton, MA. I'm interested in human-centered",
+            "items": [
+                {
+                    "name": "Projects",
+                    "link": "/projects",
+                    "img": "image here"
+                },
+                {
+                    "name": "Work",
+                    "link": "/work",
+                    "img": "image here"
+                },
+                {
+                    "name": "About",
+                    "link": "/about",
+                    "img": "image here"
+                }
+            ]
+        }
+    ]
+
+}
