@@ -1,16 +1,24 @@
 {
     "title": "Samiha Datta",
-    "links": [
+    "nav": [
+        {
+            "title": "Home",
+            "section": "home",
+            "link": "/"
+        },
         {
             "title": "Projects",
+            "section": "projects",
             "link": "/projects"
         },
         {
             "title": "Work",
+            "section": "work",
             "link": "/work"
         },
         {
             "title": "About",
+            "section": "about",
             "link": "/about"
         }
     ],
@@ -23,6 +31,10 @@
                 "item": "project",
                 "type": "items"
             },
+            "attributes": [
+                "header",
+                "items"
+            ],
             "items" : [
                 {
                     "title": "FINEance",
@@ -47,8 +59,13 @@
                 "item": "home-button",
                 "type": "description image links"
             },
+            "attributes": [
+                "header",
+                "sub-header",
+                "links"
+            ],
             "sub-header": "I'm Samiha! I'm a '23 at Dartmouth College from Newton, MA. I'm interested in human-centered",
-            "items": [
+            "links": [
                 {
                     "name": "Projects",
                     "link": "/projects",

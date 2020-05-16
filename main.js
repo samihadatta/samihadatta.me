@@ -1,6 +1,9 @@
 const ADJUSTMENT_CLASSES = ["selected", "unselected"];
 const SECTION_CLASSES = ["home", "projects", "interests", "contact"];
 
+const NAV_ID = "navbar";
+const CONTENT_ID = "content";
+
 function navigateToSectionWithId(sectionId) {
     const url = "/"+sectionId;
     history.pushState(
@@ -77,7 +80,7 @@ function isSectionClass(className) {
 // JavaScript routing. adapted from https://medium.com/@fro_g/routing-in-javascript-d552ff4d2921
 
 // Application div
-const appDiv = "app";
+const appDiv = "content";
 
 // Both set of different routes and template generation functions
 let routes = {};
@@ -104,39 +107,39 @@ let route = (path, template) => {
       return;
     }
 };
-// Register the templates.
-template('template1', () => {
-    let myDiv = document.getElementById(appDiv);
-    myDiv.innerHTML = "";
-    const link1 = createLink('view1', 'Go to view1', '#/view1');
-    const link2 = createLink('view2', 'Go to view2', '#/view2');
-    myDiv.appendChild(link1);
-    return myDiv.appendChild(link2);
-});
-template('template-view1', () => {
-    let myDiv = document.getElementById(appDiv);
-    myDiv.innerHTML = "";
-    const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
-    return myDiv.appendChild(link1);
-});
-template('template-view2', () => {
-    let myDiv = document.getElementById(appDiv);
-    myDiv.innerHTML = "";
-    const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
-    return myDiv.appendChild(link2);
-});
-// Define the mappings route->template.
-route('/', 'template1');
-route('/view1', 'template-view1');
-route('/view2', 'template-view2');
-console.log('routes should be defined');
-// Generate DOM tree from a string
-let createDiv = (id, xmlString) => {
-    let d = document.createElement('div');
-    d.id = id;
-    d.innerHTML = xmlString;
-    return d.firstChild;
-};
+// // Register the templates.
+// template('template1', () => {
+//     let myDiv = document.getElementById(appDiv);
+//     myDiv.innerHTML = "";
+//     const link1 = createLink('view1', 'Go to view1', '#/view1');
+//     const link2 = createLink('view2', 'Go to view2', '#/view2');
+//     myDiv.appendChild(link1);
+//     return myDiv.appendChild(link2);
+// });
+// template('template-view1', () => {
+//     let myDiv = document.getElementById(appDiv);
+//     myDiv.innerHTML = "";
+//     const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
+//     return myDiv.appendChild(link1);
+// });
+// template('template-view2', () => {
+//     let myDiv = document.getElementById(appDiv);
+//     myDiv.innerHTML = "";
+//     const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
+//     return myDiv.appendChild(link2);
+// });
+// // Define the mappings route->template.
+// route('/', 'template1');
+// route('/view1', 'template-view1');
+// route('/view2', 'template-view2');
+// console.log('routes should be defined');
+// // Generate DOM tree from a string
+// let createDiv = (id, xmlString) => {
+//     let d = document.createElement('div');
+//     d.id = id;
+//     d.innerHTML = xmlString;
+//     return d.firstChild;
+// };
 // Helper function to create a link.
 let createLink = (title, text, href) => {
     let a = document.createElement('a');
@@ -168,6 +171,109 @@ let router = (evt) => {
     console.log(routeResolved);
     routeResolved();
 };
+
+let loadPage = (evt) => {
+    var xobj = new XMLHttpRequest(); // https://www.quora.com/How-do-I-load-a-true-JSON-file-using-pure-JavaScript
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'data.json', true); 
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            const data = JSON.parse(xobj.responseText);
+            console.log(xobj.responseText);
+            // load in nav bar
+            let navbar = document.getElementById(NAV_ID);
+            navbar.innerHTML = "";
+            const hamburger = document.createElement('label');
+            hamburger.id = "hamburger";
+            hamburger.setAttribute("for", "toggle");
+            hamburger.append('&#9776');
+            navbar.append(hamburger);
+            const headerElement = document.createElement('div');
+            headerElement.id = "nav-header";
+            const headerLink = createLink(data.title, data.title, '/');
+            headerElement.append(headerLink);
+            navbar.append(headerElement);
+            console.log(navbar);
+            const navItems = document.createElement('ul');
+            navItems.id = "nav-items";
+            for (var navItem of data.nav) {
+                const listItem = document.createElement('li');
+                listItem.setAttribute('class', 'nav-item');
+                listItem.id = navItem.section + "-tab";
+                const link = createLink(navItem.title, navItem.title, "/#"+navItem.link);
+                listItem.append(link);
+                navItems.append(listItem);
+            }
+            navbar.append(navItems);
+            console.log(navbar);
+
+            // load in the pages
+
+            console.log('loading pages woo');
+            console.log(data.sections);
+            for (var section of data.sections) {
+                console.log('in section loop');
+                console.log(section);
+                template(section.id, () => {
+                    let contentDiv = document.getElementById("content");
+                    if ("header" in section) {
+                        console.log("has header");
+                    }
+                    if ("links" in section) {
+                        console.log("has links");
+                    }
+                    if ("items" in section) {
+                        console.log("has items");
+                    }
+                    contentDiv.appendChild('<div>' + section.id + '</div>');
+                    console.log(contentDiv);
+                    return contentDiv;
+                });
+            }
+            console.log('templates');
+            console.log(templates);
+
+            // Register the templates.
+            template('template1', () => {
+                let myDiv = document.getElementById(appDiv);
+                myDiv.innerHTML = "";
+                const link1 = createLink('view1', 'Go to view1', '#/view1');
+                const link2 = createLink('view2', 'Go to view2', '#/view2');
+                myDiv.appendChild(link1);
+                return myDiv.appendChild(link2);
+            });
+            template('template-view1', () => {
+                let myDiv = document.getElementById(appDiv);
+                myDiv.innerHTML = "";
+                const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
+                return myDiv.appendChild(link1);
+            });
+            template('template-view2', () => {
+                let myDiv = document.getElementById(appDiv);
+                myDiv.innerHTML = "";
+                const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
+                return myDiv.appendChild(link2);
+            });
+            // Define the mappings route->template.
+            route('/', 'template1');
+            route('/view1', 'template-view1');
+            route('/view2', 'template-view2');
+            console.log('routes should be defined');
+            // Generate DOM tree from a string
+            let createDiv = (id, xmlString) => {
+                let d = document.createElement('div');
+                d.id = id;
+                d.innerHTML = xmlString;
+                return d.firstChild;
+            };
+
+            router(evt);
+
+        }
+    };
+    xobj.send(null); 
+
+}
 // For first load or when routes are changed in browser url box.
-window.addEventListener('load', router);
+window.addEventListener('load', loadPage);
 window.addEventListener('hashchange', router);
