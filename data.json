@@ -22,6 +22,16 @@
             "link": "/about"
         }
     ],
+    "footer": [
+        {
+            "link": "https://www.linkedin.com/in/samihadatta/",
+            "icon": "fab fa-linkedin"
+        },
+        {
+            "link": "https://github.com/samihadatta",
+            "icon": "fab fa-github"
+        }
+    ],
     "sections": [
         {
             "id": "projects",
@@ -48,12 +58,42 @@
                     "timeline": "May 2020 - present",
                     "tech": "React Native, React",
                     "description": "Contact tracing and notification system for Dartmouth College. Final project for CS52: Full-Stack Web Development."
+                },
+                {
+                    "title": "IPA Picker",
+                    "timeline": "April 2020 - present",
+                    "tech": "HTML, CSS, JavaScript",
+                    "description": "International Phonetic Alphabet character picker for phonetic transcription. Useful for linguistics."
+                },
+                {
+                    "title": "Full-Stack Blog",
+                    "timeline": "May 2020",
+                    "tech": "React, Redux, Express, MongoDB",
+                    "description": "Full-stack blog created with React, Redux, Express, and MongoDB. Includes comments, search functionality, and authentication. Created for CS52: Full-Stack Web Development."
+                },
+                {
+                    "title": "React Notes",
+                    "timeline": "April 2020",
+                    "tech": "React, Firebase",
+                    "description": "Collaborative note board featuring real-time editing, optional authentication, and the ability to create, update, and delete posts. Created for CS52: Full-Stack Web Development."
+                },
+                {
+                    "title": "Tiny Search Engine",
+                    "timeline": "February 2020",
+                    "tech": "C",
+                    "description": "Command-line search engine in C. Consists of a crawler, an indexer, and a querier (using keyword matching to rank pages). Created for CS50: Software Design and Implementation."
+                },
+                {
+                    "title": "Mudras",
+                    "timeline": "March 2019 - June 2019",
+                    "tech": "Swift",
+                    "description": "iOS application to teach Indian classical dance students necessary hand gestures (mudras)."
                 }
             ]
         },
         {
             "id": "home",
-            "header": "Yay!",
+            "header": "Hey! I'm Samiha!",
             "link": "/",
             "style": {
                 "item": "home-button",
@@ -64,24 +104,93 @@
                 "subheader",
                 "links"
             ],
-            "subheader": "I'm Samiha! I'm a '23 at Dartmouth College from Newton, MA. I'm interested in computer science, human-centered design, and linguistics.",
+            "subheader": "I'm a '23 at Dartmouth College from Newton, MA. I'm interested in computer science, human-centered design, and linguistics.",
             "image": "img/office.gif",
             "toparrange": "image-first",
             "links": [
                 {
                     "name": "Projects",
                     "link": "/projects",
-                    "img": "img/squidward.gif"
+                    "img": "img/icons/ic_round-computer.png"
                 },
                 {
                     "name": "Work",
                     "link": "/work",
-                    "img": "img/squidward.gif"
+                    "img": "img/icons/work.png"
                 },
                 {
                     "name": "About",
                     "link": "/about",
-                    "img": "img/squidward.gif"
+                    "img": "img/icons/person.png"
+                }
+            ]
+        },
+        {
+            "id": "work",
+            "header" : "Work Experience",
+            "link": "/work",
+            "style": {
+                "item": "work",
+                "type": "items"
+            },
+            "attributes": [
+                "header",
+                "items"
+            ],
+            "items" : [
+                {
+                    "title": "Man Numeric",
+                    "timeline": "June 2018 - August 2018",
+                    "tech": "Python, NumPy, Pandas",
+                    "description": "Internship at a quantitative financial firm. Environmental, Social, and Governance research; Alternative Risk Premia research; and programming a test quality alpha factor and unit tests.",
+                    "image": "oops"
+                },
+                {
+                    "title": "Triveni School of Dance",
+                    "timeline": "July 2017 - September 2019",
+                    "tech": "Bharatanatyam, Kuchipudi, Odissi",
+                    "description": "Taught three styles of Indian classical dance (Bharatanatyam, Kuchipudi, and Odissi) to dancers of ages four to sixty-four for six to twelve hours a week.",
+                    "image": "oopsiedoopsie"
+                },
+                {
+                    "title": "Dartmouth Academic Skills Center",
+                    "timeline": "January 2020 - present",
+                    "tech": "Java",
+                    "description": "Peer academic tutor for CS 10: Object-Oriented Programming. Clarifying concepts and helping with labs.",
+                    "image": "oopsiedoopsie"
+                }
+            ]
+        },
+        {
+            "id": "about",
+            "header" : "About Me",
+            "link": "/about",
+            "style": {
+                "item": "about",
+                "type": "items"
+            },
+            "attributes": [
+                "header",
+                "items"
+            ],
+            "items" : [
+                {
+                    "description": "I'm extremely interested in computer science, human-centered design and linguistics.",
+                    "image": "oops"
+                },
+                {
+                    "title": "Triveni School of Dance",
+                    "timeline": "July 2017 - September 2019",
+                    "tech": "Bharatanatyam, Kuchipudi, Odissi",
+                    "description": "Taught three styles of Indian classical dance (Bharatanatyam, Kuchipudi, and Odissi) to dancers of ages four to sixty-four for six to twelve hours a week.",
+                    "image": "oopsiedoopsie"
+                },
+                {
+                    "title": "Dartmouth Academic Skills Center",
+                    "timeline": "January 2020 - present",
+                    "tech": "Java",
+                    "description": "Peer academic tutor for CS 10: Object-Oriented Programming. Clarifying concepts and helping with labs.",
+                    "image": "oopsiedoopsie"
                 }
             ]
         }

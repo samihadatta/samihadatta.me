@@ -3,6 +3,7 @@ const SECTION_CLASSES = ["home", "projects", "interests", "contact"];
 
 const NAV_ID = "navbar";
 const CONTENT_ID = "content";
+const FOOTER_ID = "footer";
 
 function navigateToSectionWithId(sectionId) {
     const url = "/"+sectionId;
@@ -80,15 +81,22 @@ function isSectionClass(className) {
 // JavaScript routing. adapted from https://medium.com/@fro_g/routing-in-javascript-d552ff4d2921
 
 // Application div
-const appDiv = "content";
+const appDiv = CONTENT_ID;
 
 // Both set of different routes and template generation functions
 let routes = {};
 let templates = {};
 
 // Register a template (this is to mimic a template engine)
-let template = (name, templateFunction) => {
-  return templates[name] = templateFunction(name);
+let template = (section, templateFunction) => {
+    console.log('in template function');
+    console.log('section');
+    console.log(section);
+    console.log('section id');
+    console.log(section.id);
+    console.log('function');
+    console.log(templateFunction);
+  return templates[section.id] = templateFunction(section);
 };
 
 // Define the routes. Each route is described with a route path & a template to render
@@ -97,6 +105,7 @@ let template = (name, templateFunction) => {
 let route = (path, template) => {
     console.log('in route');
     console.log(path);
+    console.log(template);
     if (typeof template == "function") {
       return routes[path] = template;
     }
@@ -172,6 +181,100 @@ let router = (evt) => {
     routeResolved();
 };
 
+let templateTemplate = (section) => {
+    console.log("SECTION inside");
+    console.log(section);
+    let contentDiv = document.getElementById(CONTENT_ID);
+    contentDiv.innerHTML = "";
+    let topDiv = document.createElement("div");
+    topDiv.setAttribute("id", "top-div");
+    let textDiv = document.createElement("div");
+    textDiv.setAttribute("id", "text-div");
+    if ("header" in section) {
+        const header = document.createElement("h1");
+        header.innerText = section.header;
+        textDiv.append(header);
+    }
+    if ("subheader" in section) {
+        const subheader = document.createElement("h2");
+        subheader.innerText = section.subheader;
+        textDiv.append(subheader);
+    }
+    if ("image" in section) {
+        const image = document.createElement("img");
+        image.src = section.image;
+
+        if ("toparrange" === "image-first") {
+            topDiv.append(image);
+            topDiv.append(textDiv);
+        } else { // if "toparrange" === "image-second"
+            topDiv.append(textDiv);
+            topDiv.append(image);
+        }
+        contentDiv.append(topDiv);
+    } else {
+        topDiv.append(textDiv);
+        contentDiv.append(topDiv);
+    }
+
+    // now the rest of the page items: links or items
+    if ("items" in section) {
+        const itemsDiv = document.createElement("div");
+        for (var item of section.items) {
+            const itemDiv = document.createElement("div");
+            itemDiv.setAttribute("id", section.id);
+            const title = document.createElement("h2");
+            title.setAttribute("class", section.id + "-header");
+            title.innerText = item.title;
+            itemDiv.append(title);
+
+            const info = document.createElement("div");
+            info.setAttribute("class", section.id + "-info");
+            const timeline = document.createElement("h3");
+            timeline.innerText = item.timeline;
+            timeline.setAttribute("class", "timeline");
+            info.append(timeline);
+            const tech = document.createElement("h3");
+            tech.innerText = item.tech;
+            tech.setAttribute("class", "tech");
+            info.append(tech);
+            const description = document.createElement("p");
+            description.innerText = item.description;
+            info.append(description);
+            const image = document.createElement("img");
+            image.src = item.image;
+            info.append(image);
+
+            itemDiv.append(info);
+
+            itemsDiv.append(itemDiv);
+        }
+        contentDiv.append(itemsDiv);
+        return contentDiv;
+    }
+
+    if ("links" in section) {
+        console.log('we have some links!');
+        const linksDiv = document.createElement("div");
+        linksDiv.setAttribute("class", "links");
+        for (var link of section.links) {
+            const linkDiv = document.createElement("a");
+            linkDiv.href = "/#" + link.link;
+            linkDiv.setAttribute("class", "link");
+            const name = document.createElement("h4");
+            name.innerText = link.name;
+            linkDiv.append(name);
+            const img = document.createElement("img");
+            img.src = link.img;
+            linkDiv.append(img);
+            linksDiv.append(linkDiv);
+        }
+        console.log(linksDiv);
+        contentDiv.append(linksDiv);
+    }
+    return contentDiv;
+}
+
 let loadPage = (evt) => {
     const url = window.location.hash.slice(1) || "/";
     console.log('current url');
@@ -197,18 +300,29 @@ let loadPage = (evt) => {
             headerElement.append(headerLink);
             navbar.append(headerElement);
             console.log(navbar);
-            const navItems = document.createElement('ul');
+            const navItems = document.createElement('div');
             navItems.id = "nav-items";
             for (var navItem of data.nav) {
-                const listItem = document.createElement('li');
-                listItem.setAttribute('class', 'nav-item');
-                listItem.id = navItem.section + "-tab";
                 const link = createLink(navItem.title, navItem.title, "/#"+navItem.link);
-                listItem.append(link);
-                navItems.append(listItem);
+                link.setAttribute('class', 'nav-item');
+                link.id = navItem.section + "-tab";
+                navItems.append(link);
             }
             navbar.append(navItems);
             console.log(navbar);
+
+            // load footer
+            let footer = document.getElementById(FOOTER_ID);
+            footer.innerHTML = "";
+            for (var footerLink of data.footer) {
+                const link = document.createElement("a");
+                link.href = footerLink.link;
+                link.target = "_blank";
+                const icon = document.createElement("i");
+                icon.setAttribute("class", footerLink.icon);
+                link.append(icon);
+                footer.append(link);
+            }
 
             // load in the pages
             // const thisSectionUrl = window.location.hash.slice(1) || "/";
@@ -216,100 +330,23 @@ let loadPage = (evt) => {
  
             // route(thisSectionUrl, section.id);
 
-            for (var section of data.sections) {
+            for (var sectionLoop of data.sections) {
                 console.log("section outside function");
-                console.log(section);
-                template(section.id, (section) => {
-                    console.log("SECTION inside");
-                    console.log(section);
-                    let contentDiv = document.getElementById("content");
-                    contentDiv.innerHTML = "";
-                    let topDiv = document.createElement("div");
-                    topDiv.setAttribute("id", "top-div");
-                    let textDiv = document.createElement("div");
-                    textDiv.setAttribute("id", "text-div");
-                    if ("header" in section) {
-                        const header = document.createElement("h1");
-                        header.innerText = section.header;
-                        textDiv.append(header);
-                    }
-                    if ("subheader" in section) {
-                        const subheader = document.createElement("h2");
-                        subheader.innerText = section.subheader;
-                        textDiv.append(subheader);
-                    }
-                    if ("image" in section) {
-                        const image = document.createElement("img");
-                        image.src = section.image;
-    
-                        if ("toparrange" === "image-first") {
-                            topDiv.append(image);
-                            topDiv.append(textDiv);
-                        } else { // if "toparrange" === "image-second"
-                            topDiv.append(textDiv);
-                            topDiv.append(image);
-                        }
-                        contentDiv.append(topDiv);
-                    } else {
-                        topDiv.append(textDiv);
-                        contentDiv.append(topDiv);
-                    }
-    
-                    // now the rest of the page items: links or items
-                    if ("items" in section) {
-                        const itemsDiv = document.createElement("div");
-                        for (var item of items) {
-                            const itemDiv = document.createElement("div");
-                            item.setAttribute("id", section.id);
-                            const title = document.createElement("h2");
-                            title.setAttribute("class", section.id + "-header");
-                            title.innerText = item.title;
-                            itemDiv.append(title);
-    
-                            const info = document.createElement("div");
-                            info.setAttribute("class", section.id + "-info");
-                            const timeline = document.createElement("h2");
-                            timeline.innerText = item.timeline;
-                            info.append(timeline);
-                            const description = document.createElement("h2");
-                            description.innerText = item.description;
-                            info.append(description);
-                            const image = document.createElement("img");
-                            image.src = item.image;
-                            info.append(image);
-    
-                            itemDiv.append(info);
-    
-                            itemsDiv.append(itemDiv);
-                        }
-                        contentDiv.append(itemsDiv);
-                    }
-    
-                    if ("links" in section) {
-                        console.log('we have some links!');
-                        const linksDiv = document.createElement("div");
-                        linksDiv.setAttribute("class", "links");
-                        for (var link of section.links) {
-                            const linkDiv = document.createElement("a");
-                            linkDiv.href = "/#" + link.link;
-                            linkDiv.setAttribute("class", "link");
-                            const name = document.createElement("h4");
-                            name.innerText = link.name;
-                            linkDiv.append(name);
-                            const img = document.createElement("img");
-                            img.src = link.img;
-                            linkDiv.append(img);
-                            linksDiv.append(linkDiv);
-                        }
-                        console.log(linksDiv);
-                        contentDiv.append(linksDiv);
-                    }
-                    return contentDiv;
-                });
-                route(section.link, section.id);
+                console.log(sectionLoop);
+                template(sectionLoop, templateTemplate);
+                console.log('out of template');
+                console.log(templates[sectionLoop.id]);
+                route(sectionLoop.link, sectionLoop.id);
+                console.log('end of loop');
+                console.log(sectionLoop.id);
+                console.log(template[sectionLoop.id]);
             }
             console.log('templates');
             console.log(templates);
+            console.log('for projects');
+            console.log(templates["projects"]);
+            console.log('for home');
+            console.log(templates["home"]);
 
             // // Register the templates.
             // template('template1', () => {
@@ -336,9 +373,12 @@ let loadPage = (evt) => {
             // route('/', 'template1');
             // route('/view1', 'template-view1');
             // route('/view2', 'template-view2');
-            console.log('routes should be defined');
+            // console.log('routes should be defined');
 
             router(evt);
+
+            console.log("routes");
+            console.log(routes);
 
         }
     };
