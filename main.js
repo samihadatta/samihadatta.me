@@ -171,6 +171,7 @@ let resolveRoute = (path) => {
      return routes[path];
     } catch (error) {
         throw new Error("The route is not defined");
+        return routes["/"];
     }
 };
 // The actual router, get the current URL and generate the corresponding template
@@ -327,11 +328,11 @@ let loadPage = (evt) => {
  
             // route(thisSectionUrl, section.id);
 
-            for (let section of data.sections) {
+            for (let sectionLoop of data.sections) {
                 // console.log("section outside function");
                 // console.log(sectionLoop);
-                PATH_TO_ID[section.link] = section.id;
-                template(section, (section) => {
+                PATH_TO_ID[sectionLoop.link] = sectionLoop.id;
+                template(sectionLoop, (section) => {
                     console.log("SECTION inside");
                     console.log(section);
                     let contentDiv = document.createElement("div");
@@ -427,7 +428,7 @@ let loadPage = (evt) => {
                 });
                     // console.log('out of template');
                     // console.log(templates[sectionLoop.id]);
-                    route(section.link, section.id);
+                    route(sectionLoop.link, sectionLoop.id);
                     // console.log('end of loop');
                     // console.log(sectionLoop.id);
                     // console.log(template[sectionLoop.id]);
