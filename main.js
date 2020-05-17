@@ -3,7 +3,10 @@
 const NAV_ID = "navbar";
 const CONTENT_ID = "content";
 const FOOTER_ID = "footer";
+let SECTIONS = {};
 let PATH_TO_ID = {};
+let currentPath = "/";
+// let section = {};
 
 function navigateToSectionWithId(sectionId) {
     const url = "/"+sectionId;
@@ -96,7 +99,7 @@ let template = (section, templateFunction) => {
     // console.log(section.id);
     // console.log('function');
     // console.log(templateFunction);
-  return templates[section.id] = templateFunction(section);
+  return templates[section.id] = templateFunction;
 };
 
 // Define the routes. Each route is described with a route path & a template to render
@@ -167,8 +170,9 @@ let resolveRoute = (path) => {
         // console.log('in try');
         // console.log(routes);
         // console.log(routes[path]);
-        navigateToSectionWithId(PATH_TO_ID[path]);
-     return routes[path];
+        // navigateToSectionWithId(PATH_TO_ID[path]);
+        currentPath = path;
+     return routes[path]();
     } catch (error) {
         throw new Error("The route is not defined");
         return routes["/"];
@@ -327,12 +331,18 @@ let loadPage = (evt) => {
             // const section = data.sections[thisSectionUrl];
  
             // route(thisSectionUrl, section.id);
-
+            SECTIONS = data.sections;
             for (let sectionLoop of data.sections) {
                 // console.log("section outside function");
                 // console.log(sectionLoop);
                 PATH_TO_ID[sectionLoop.link] = sectionLoop.id;
-                template(sectionLoop, (section) => {
+                console.log(PATH_TO_ID);
+                template(sectionLoop, () => {
+                    console.log('in template function');
+                    console.log(SECTIONS);
+                    console.log(PATH_TO_ID);
+                    let section = SECTIONS[PATH_TO_ID[currentPath]];
+                    console.log(section);
                     console.log("SECTION inside");
                     console.log(section);
                     let contentDiv = document.createElement("div");
