@@ -1,9 +1,9 @@
-const ADJUSTMENT_CLASSES = ["selected", "unselected"];
-const SECTION_CLASSES = ["home", "projects", "interests", "contact"];
+// const ADJUSTMENT_CLASSES = ["selected", "unselected"];
 
 const NAV_ID = "navbar";
 const CONTENT_ID = "content";
 const FOOTER_ID = "footer";
+let PATH_TO_ID = {};
 
 function navigateToSectionWithId(sectionId) {
     const url = "/"+sectionId;
@@ -13,29 +13,29 @@ function navigateToSectionWithId(sectionId) {
         url
     )
     // set all other sections to unselected
-    var sections = document.getElementsByClassName("section");
-    for (var i = 0; i < sections.length; i++ ) {
-        var classes = getNotAdjustmentClasses(sections[i]);
+    let sections = document.getElementsByClassName("section");
+    for (let i = 0; i < sections.length; i++ ) {
+        let classes = getNotAdjustmentClasses(sections[i]);
         classes += " unselected";
         sections[i].setAttribute("class", classes);
     }
     
     // set this section to selected
-    var thisSectionClasses = getNotAdjustmentClasses(document.getElementById(sectionId));
+    let thisSectionClasses = getNotAdjustmentClasses(document.getElementById(sectionId));
     thisSectionClasses += " selected";
     document.getElementById(sectionId).setAttribute("class", thisSectionClasses);
 }
 
 function navigateToNewSection(event)  {
-    var thisSectionId = event.target.getAttribute("id").replace("-tab", "");
+    let thisSectionId = event.target.getAttribute("id").replace("-tab", "");
     navigateToSectionWithId(thisSectionId);
 }
 
 function getNotAdjustmentClasses(el) {
-    var newClasses = "";
-    var classes = el.getAttribute("class")
+    let newClasses = "";
+    let classes = el.getAttribute("class")
     classes = classes.split(" ");
-    for (var j = 0; j < classes.length; j++) {
+    for (let j = 0; j < classes.length; j++) {
         newClass = classes[j];
         if (isAdjustmentClass(newClass) === false) {
             newClasses += " " + newClass;
@@ -45,7 +45,7 @@ function getNotAdjustmentClasses(el) {
 }
 
 function isAdjustmentClass(classToCheck) {
-    for (var k = 0; k < ADJUSTMENT_CLASSES.length; k++) {
+    for (let k = 0; k < ADJUSTMENT_CLASSES.length; k++) {
         if (ADJUSTMENT_CLASSES[k] === classToCheck) {
             return true;
         }
@@ -57,9 +57,9 @@ function isAdjustmentClass(classToCheck) {
 // rewrite this logic!!!
 
 function getSectionClass(el) {
-    var classes = element.getAttribute("class");
+    let classes = element.getAttribute("class");
     classes = classes.split(" ");
-    for (var i = 0; j < classes.length; j++) {
+    for (let i = 0; j < classes.length; j++) {
         if (isSectionClass(classes[i])) {
             return classes[i];
         }
@@ -68,8 +68,8 @@ function getSectionClass(el) {
 }
 
 function isSectionClass(className) {
-    for (var j = 0; j < SECTION_CLASSES.length; j++) {
-        if (className === SECTION_CLASSES[j]) {
+    for (let j = 0; j < PATH_TO_ID.length; j++) {
+        if (className === PATH_TO_ID[j]) {
             return true;
         }
     }
@@ -89,13 +89,13 @@ let templates = {};
 
 // Register a template (this is to mimic a template engine)
 let template = (section, templateFunction) => {
-    console.log('in template function');
-    console.log('section');
-    console.log(section);
-    console.log('section id');
-    console.log(section.id);
-    console.log('function');
-    console.log(templateFunction);
+    // console.log('in template function');
+    // console.log('section');
+    // console.log(section);
+    // console.log('section id');
+    // console.log(section.id);
+    // console.log('function');
+    // console.log(templateFunction);
   return templates[section.id] = templateFunction(section);
 };
 
@@ -164,9 +164,10 @@ let resolveRoute = (path) => {
     console.log('in resolveRoute');
     console.log(path);
     try {
-        console.log('in try');
-        console.log(routes);
-        console.log(routes[path]);
+        // console.log('in try');
+        // console.log(routes);
+        // console.log(routes[path]);
+        navigateToSectionWithId(PATH_TO_ID[path]);
      return routes[path];
     } catch (error) {
         throw new Error("The route is not defined");
@@ -176,15 +177,14 @@ let resolveRoute = (path) => {
 let router = (evt) => {
     console.log('in router');
     const url = window.location.hash.slice(1) || "/";
-    const routeResolved = resolveRoute(url);
-    console.log(routeResolved);
-    routeResolved();
+    resolveRoute(url);
+    console.log('route: ' + url);
 };
 
 let templateTemplate = (section) => {
     console.log("SECTION inside");
     console.log(section);
-    let contentDiv = document.getElementById(CONTENT_ID);
+    let contentDiv = document.createElement(section.id);
     contentDiv.innerHTML = "";
     let topDiv = document.createElement("div");
     topDiv.setAttribute("id", "top-div");
@@ -220,7 +220,7 @@ let templateTemplate = (section) => {
     // now the rest of the page items: links or items
     if ("items" in section) {
         const itemsDiv = document.createElement("div");
-        for (var item of section.items) {
+        for (let item of section.items) {
             const itemDiv = document.createElement("div");
             itemDiv.setAttribute("id", section.id);
             const title = document.createElement("h2");
@@ -257,7 +257,7 @@ let templateTemplate = (section) => {
         console.log('we have some links!');
         const linksDiv = document.createElement("div");
         linksDiv.setAttribute("class", "links");
-        for (var link of section.links) {
+        for (let link of section.links) {
             const linkDiv = document.createElement("a");
             linkDiv.href = "/#" + link.link;
             linkDiv.setAttribute("class", "link");
@@ -272,21 +272,18 @@ let templateTemplate = (section) => {
         console.log(linksDiv);
         contentDiv.append(linksDiv);
     }
-    return contentDiv;
+    let containerDiv = document.getElementById("container");
+    containerDiv.appendChild(contentDiv);
 }
 
 let loadPage = (evt) => {
-    const url = window.location.hash.slice(1) || "/";
-    console.log('current url');
-    console.log(url);
-    var xobj = new XMLHttpRequest(); // https://www.quora.com/How-do-I-load-a-true-JSON-file-using-pure-JavaScript
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'data.json', true); 
-    xobj.onreadystatechange = function () {
-        if (xobj.readyState == 4 && xobj.status == "200") {
-            const data = JSON.parse(xobj.responseText);
-
-            // load nav bar
+    fetch('data.json')
+    .then((response) => {
+        // if (xobj.readyState == 4 && xobj.status == "200") {
+        //     const data = JSON.parse(xobj.responseText);
+            const data = response.json().then((data) => {
+                console.log(data);
+                            // load nav bar
             let navbar = document.getElementById(NAV_ID);
             navbar.innerHTML = "";
             const hamburger = document.createElement('label');
@@ -302,7 +299,7 @@ let loadPage = (evt) => {
             console.log(navbar);
             const navItems = document.createElement('div');
             navItems.id = "nav-items";
-            for (var navItem of data.nav) {
+            for (let navItem of data.nav) {
                 const link = createLink(navItem.title, navItem.title, "/#"+navItem.link);
                 link.setAttribute('class', 'nav-item');
                 link.id = navItem.section + "-tab";
@@ -314,7 +311,7 @@ let loadPage = (evt) => {
             // load footer
             let footer = document.getElementById(FOOTER_ID);
             footer.innerHTML = "";
-            for (var footerLink of data.footer) {
+            for (let footerLink of data.footer) {
                 const link = document.createElement("a");
                 link.href = footerLink.link;
                 link.target = "_blank";
@@ -330,59 +327,129 @@ let loadPage = (evt) => {
  
             // route(thisSectionUrl, section.id);
 
-            for (var sectionLoop of data.sections) {
-                console.log("section outside function");
-                console.log(sectionLoop);
-                template(sectionLoop, templateTemplate);
-                console.log('out of template');
-                console.log(templates[sectionLoop.id]);
-                route(sectionLoop.link, sectionLoop.id);
-                console.log('end of loop');
-                console.log(sectionLoop.id);
-                console.log(template[sectionLoop.id]);
-            }
-            console.log('templates');
-            console.log(templates);
-            console.log('for projects');
-            console.log(templates["projects"]);
-            console.log('for home');
-            console.log(templates["home"]);
+            for (let section of data.sections) {
+                // console.log("section outside function");
+                // console.log(sectionLoop);
+                PATH_TO_ID[section.link] = section.id;
+                template(section, (section) => {
+                    console.log("SECTION inside");
+                    console.log(section);
+                    let contentDiv = document.createElement("div");
+                    contentDiv.setAttribute("id", section.id);
+                    contentDiv.innerHTML = "";
+                    let topDiv = document.createElement("div");
+                    topDiv.setAttribute("id", "top-div");
+                    let textDiv = document.createElement("div");
+                    textDiv.setAttribute("id", "text-div");
+                    if ("header" in section) {
+                        const header = document.createElement("h1");
+                        header.innerText = section.header;
+                        textDiv.append(header);
+                    }
+                    if ("subheader" in section) {
+                        const subheader = document.createElement("h2");
+                        subheader.innerText = section.subheader;
+                        textDiv.append(subheader);
+                    }
+                    if ("image" in section) {
+                        const image = document.createElement("img");
+                        image.src = section.image;
+                
+                        if ("toparrange" === "image-first") {
+                            topDiv.append(image);
+                            topDiv.append(textDiv);
+                        } else { // if "toparrange" === "image-second"
+                            topDiv.append(textDiv);
+                            topDiv.append(image);
+                        }
+                        contentDiv.append(topDiv);
+                    } else {
+                        topDiv.append(textDiv);
+                        contentDiv.append(topDiv);
+                    }
+                
+                    // now the rest of the page items: links or items
+                    if ("items" in section) {
+                        const itemsDiv = document.createElement("div");
+                        for (let item of section.items) {
+                            const itemDiv = document.createElement("div");
+                            itemDiv.setAttribute("class", section.style.item);
+                            const title = document.createElement("h2");
+                            title.setAttribute("class", section.id + "-header");
+                            title.innerText = item.title;
+                            itemDiv.append(title);
+                
+                            const info = document.createElement("div");
+                            info.setAttribute("class", section.id + "-info");
+                            const timeline = document.createElement("h3");
+                            timeline.innerText = item.timeline;
+                            timeline.setAttribute("class", "timeline");
+                            info.append(timeline);
+                            const tech = document.createElement("h3");
+                            tech.innerText = item.tech;
+                            tech.setAttribute("class", "tech");
+                            info.append(tech);
+                            const description = document.createElement("p");
+                            description.innerText = item.description;
+                            info.append(description);
+                            const image = document.createElement("img");
+                            image.src = item.image;
+                            info.append(image);
+                
+                            itemDiv.append(info);
+                
+                            itemsDiv.append(itemDiv);
+                        }
+                        contentDiv.append(itemsDiv);
+                    }
+                
+                    if ("links" in section) {
+                        console.log('we have some links!');
+                        const linksDiv = document.createElement("div");
+                        linksDiv.setAttribute("class", "links");
+                        for (let link of section.links) {
+                            const linkDiv = document.createElement("a");
+                            linkDiv.href = "/#" + link.link;
+                            linkDiv.setAttribute("class", "link");
+                            const name = document.createElement("h4");
+                            name.innerText = link.name;
+                            linkDiv.append(name);
+                            const img = document.createElement("img");
+                            img.src = link.img;
+                            linkDiv.append(img);
+                            linksDiv.append(linkDiv);
+                        }
+                        console.log(linksDiv);
+                        contentDiv.append(linksDiv);
+                    }
+                    let containerDiv = document.getElementById(CONTENT_ID);
+                    containerDiv.append(contentDiv);
+                });
+                    // console.log('out of template');
+                    // console.log(templates[sectionLoop.id]);
+                    route(section.link, section.id);
+                    // console.log('end of loop');
+                    // console.log(sectionLoop.id);
+                    // console.log(template[sectionLoop.id]);
+                }
+                console.log('templates');
+                console.log(templates);
+                console.log('for projects');
+                console.log(templates["projects"]);
+                console.log('for home');
+                console.log(templates["home"]);
+                console.log('for about');
+                console.log(templates["about"]);
+                console.log('for work');
+                console.log(templates["work"]);
 
-            // // Register the templates.
-            // template('template1', () => {
-            //     let myDiv = document.getElementById(appDiv);
-            //     myDiv.innerHTML = "";
-            //     const link1 = createLink('view1', 'Go to view1', '#/view1');
-            //     const link2 = createLink('view2', 'Go to view2', '#/view2');
-            //     myDiv.appendChild(link1);
-            //     return myDiv.appendChild(link2);
-            // });
-            // template('template-view1', () => {
-            //     let myDiv = document.getElementById(appDiv);
-            //     myDiv.innerHTML = "";
-            //     const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
-            //     return myDiv.appendChild(link1);
-            // });
-            // template('template-view2', () => {
-            //     let myDiv = document.getElementById(appDiv);
-            //     myDiv.innerHTML = "";
-            //     const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
-            //     return myDiv.appendChild(link2);
-            // });
-            // Define the mappings route->template.
-            // route('/', 'template1');
-            // route('/view1', 'template-view1');
-            // route('/view2', 'template-view2');
-            // console.log('routes should be defined');
+                router(evt);
 
-            router(evt);
-
-            console.log("routes");
-            console.log(routes);
-
-        }
-    };
-    xobj.send(null); 
+                console.log("routes");
+                console.log(routes);
+        });
+    });
+    // xobj.send(null); 
 
 }
 // For first load or when routes are changed in browser url box.
