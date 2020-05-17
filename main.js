@@ -88,7 +88,7 @@ let templates = {};
 
 // Register a template (this is to mimic a template engine)
 let template = (name, templateFunction) => {
-  return templates[name] = templateFunction;
+  return templates[name] = templateFunction(name);
 };
 
 // Define the routes. Each route is described with a route path & a template to render
@@ -217,7 +217,11 @@ let loadPage = (evt) => {
             // route(thisSectionUrl, section.id);
 
             for (var section of data.sections) {
-                template(section.id, () => {
+                console.log("section outside function");
+                console.log(section);
+                template(section.id, (section) => {
+                    console.log("SECTION inside");
+                    console.log(section);
                     let contentDiv = document.getElementById("content");
                     contentDiv.innerHTML = "";
                     let topDiv = document.createElement("div");
@@ -284,9 +288,11 @@ let loadPage = (evt) => {
                     if ("links" in section) {
                         console.log('we have some links!');
                         const linksDiv = document.createElement("div");
+                        linksDiv.setAttribute("class", "links");
                         for (var link of section.links) {
                             const linkDiv = document.createElement("a");
                             linkDiv.href = "/#" + link.link;
+                            linkDiv.setAttribute("class", "link");
                             const name = document.createElement("h4");
                             name.innerText = link.name;
                             linkDiv.append(name);
