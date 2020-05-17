@@ -53,7 +53,7 @@
         },
         {
             "id": "home",
-            "header": "Hey there!",
+            "header": "Yay!",
             "link": "/",
             "style": {
                 "item": "home-button",
@@ -61,25 +61,27 @@
             },
             "attributes": [
                 "header",
-                "sub-header",
+                "subheader",
                 "links"
             ],
-            "sub-header": "I'm Samiha! I'm a '23 at Dartmouth College from Newton, MA. I'm interested in human-centered",
+            "subheader": "I'm Samiha! I'm a '23 at Dartmouth College from Newton, MA. I'm interested in computer science, human-centered design, and linguistics.",
+            "image": "img/office.gif",
+            "toparrange": "image-first",
             "links": [
                 {
                     "name": "Projects",
                     "link": "/projects",
-                    "img": "image here"
+                    "img": "img/squidward.gif"
                 },
                 {
                     "name": "Work",
                     "link": "/work",
-                    "img": "image here"
+                    "img": "img/squidward.gif"
                 },
                 {
                     "name": "About",
                     "link": "/about",
-                    "img": "image here"
+                    "img": "img/squidward.gif"
                 }
             ]
         }

@@ -133,13 +133,13 @@ let route = (path, template) => {
 // route('/view1', 'template-view1');
 // route('/view2', 'template-view2');
 // console.log('routes should be defined');
-// // Generate DOM tree from a string
-// let createDiv = (id, xmlString) => {
-//     let d = document.createElement('div');
-//     d.id = id;
-//     d.innerHTML = xmlString;
-//     return d.firstChild;
-// };
+// Generate DOM tree from a string
+let createDiv = (id, xmlString) => {
+    let d = document.createElement('div');
+    d.id = id;
+    d.innerHTML = xmlString;
+    return d.firstChild;
+};
 // Helper function to create a link.
 let createLink = (title, text, href) => {
     let a = document.createElement('a');
@@ -173,14 +173,17 @@ let router = (evt) => {
 };
 
 let loadPage = (evt) => {
+    const url = window.location.hash.slice(1) || "/";
+    console.log('current url');
+    console.log(url);
     var xobj = new XMLHttpRequest(); // https://www.quora.com/How-do-I-load-a-true-JSON-file-using-pure-JavaScript
     xobj.overrideMimeType("application/json");
     xobj.open('GET', 'data.json', true); 
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
             const data = JSON.parse(xobj.responseText);
-            console.log(xobj.responseText);
-            // load in nav bar
+
+            // load nav bar
             let navbar = document.getElementById(NAV_ID);
             navbar.innerHTML = "";
             const hamburger = document.createElement('label');
@@ -208,64 +211,126 @@ let loadPage = (evt) => {
             console.log(navbar);
 
             // load in the pages
+            // const thisSectionUrl = window.location.hash.slice(1) || "/";
+            // const section = data.sections[thisSectionUrl];
+ 
+            // route(thisSectionUrl, section.id);
 
-            console.log('loading pages woo');
-            console.log(data.sections);
             for (var section of data.sections) {
-                console.log('in section loop');
-                console.log(section);
                 template(section.id, () => {
                     let contentDiv = document.getElementById("content");
+                    contentDiv.innerHTML = "";
+                    let topDiv = document.createElement("div");
+                    topDiv.setAttribute("id", "top-div");
+                    let textDiv = document.createElement("div");
+                    textDiv.setAttribute("id", "text-div");
                     if ("header" in section) {
-                        console.log("has header");
+                        const header = document.createElement("h1");
+                        header.innerText = section.header;
+                        textDiv.append(header);
                     }
-                    if ("links" in section) {
-                        console.log("has links");
+                    if ("subheader" in section) {
+                        const subheader = document.createElement("h2");
+                        subheader.innerText = section.subheader;
+                        textDiv.append(subheader);
                     }
+                    if ("image" in section) {
+                        const image = document.createElement("img");
+                        image.src = section.image;
+    
+                        if ("toparrange" === "image-first") {
+                            topDiv.append(image);
+                            topDiv.append(textDiv);
+                        } else { // if "toparrange" === "image-second"
+                            topDiv.append(textDiv);
+                            topDiv.append(image);
+                        }
+                        contentDiv.append(topDiv);
+                    } else {
+                        topDiv.append(textDiv);
+                        contentDiv.append(topDiv);
+                    }
+    
+                    // now the rest of the page items: links or items
                     if ("items" in section) {
-                        console.log("has items");
+                        const itemsDiv = document.createElement("div");
+                        for (var item of items) {
+                            const itemDiv = document.createElement("div");
+                            item.setAttribute("id", section.id);
+                            const title = document.createElement("h2");
+                            title.setAttribute("class", section.id + "-header");
+                            title.innerText = item.title;
+                            itemDiv.append(title);
+    
+                            const info = document.createElement("div");
+                            info.setAttribute("class", section.id + "-info");
+                            const timeline = document.createElement("h2");
+                            timeline.innerText = item.timeline;
+                            info.append(timeline);
+                            const description = document.createElement("h2");
+                            description.innerText = item.description;
+                            info.append(description);
+                            const image = document.createElement("img");
+                            image.src = item.image;
+                            info.append(image);
+    
+                            itemDiv.append(info);
+    
+                            itemsDiv.append(itemDiv);
+                        }
+                        contentDiv.append(itemsDiv);
                     }
-                    contentDiv.appendChild('<div>' + section.id + '</div>');
-                    console.log(contentDiv);
+    
+                    if ("links" in section) {
+                        console.log('we have some links!');
+                        const linksDiv = document.createElement("div");
+                        for (var link of section.links) {
+                            const linkDiv = document.createElement("a");
+                            linkDiv.href = "/#" + link.link;
+                            const name = document.createElement("h4");
+                            name.innerText = link.name;
+                            linkDiv.append(name);
+                            const img = document.createElement("img");
+                            img.src = link.img;
+                            linkDiv.append(img);
+                            linksDiv.append(linkDiv);
+                        }
+                        console.log(linksDiv);
+                        contentDiv.append(linksDiv);
+                    }
                     return contentDiv;
                 });
+                route(section.link, section.id);
             }
             console.log('templates');
             console.log(templates);
 
-            // Register the templates.
-            template('template1', () => {
-                let myDiv = document.getElementById(appDiv);
-                myDiv.innerHTML = "";
-                const link1 = createLink('view1', 'Go to view1', '#/view1');
-                const link2 = createLink('view2', 'Go to view2', '#/view2');
-                myDiv.appendChild(link1);
-                return myDiv.appendChild(link2);
-            });
-            template('template-view1', () => {
-                let myDiv = document.getElementById(appDiv);
-                myDiv.innerHTML = "";
-                const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
-                return myDiv.appendChild(link1);
-            });
-            template('template-view2', () => {
-                let myDiv = document.getElementById(appDiv);
-                myDiv.innerHTML = "";
-                const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
-                return myDiv.appendChild(link2);
-            });
+            // // Register the templates.
+            // template('template1', () => {
+            //     let myDiv = document.getElementById(appDiv);
+            //     myDiv.innerHTML = "";
+            //     const link1 = createLink('view1', 'Go to view1', '#/view1');
+            //     const link2 = createLink('view2', 'Go to view2', '#/view2');
+            //     myDiv.appendChild(link1);
+            //     return myDiv.appendChild(link2);
+            // });
+            // template('template-view1', () => {
+            //     let myDiv = document.getElementById(appDiv);
+            //     myDiv.innerHTML = "";
+            //     const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
+            //     return myDiv.appendChild(link1);
+            // });
+            // template('template-view2', () => {
+            //     let myDiv = document.getElementById(appDiv);
+            //     myDiv.innerHTML = "";
+            //     const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
+            //     return myDiv.appendChild(link2);
+            // });
             // Define the mappings route->template.
-            route('/', 'template1');
-            route('/view1', 'template-view1');
-            route('/view2', 'template-view2');
+            // route('/', 'template1');
+            // route('/view1', 'template-view1');
+            // route('/view2', 'template-view2');
             console.log('routes should be defined');
-            // Generate DOM tree from a string
-            let createDiv = (id, xmlString) => {
-                let d = document.createElement('div');
-                d.id = id;
-                d.innerHTML = xmlString;
-                return d.firstChild;
-            };
 
             router(evt);
 
