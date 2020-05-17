@@ -96,7 +96,7 @@ let template = (section, templateFunction) => {
     // console.log(section.id);
     // console.log('function');
     // console.log(templateFunction);
-  return templates[section.id] = templateFunction(section);
+  return templates[section.id] = () => { templateFunction(section) };
 };
 
 // Define the routes. Each route is described with a route path & a template to render
@@ -163,12 +163,16 @@ let createLink = (title, text, href) => {
 let resolveRoute = (path) => {
     console.log('in resolveRoute');
     console.log(path);
+    console.log('routes');
+    console.log(routes);
+    console.log("spot");
+    console.log(routes[path]);
     try {
         // console.log('in try');
         // console.log(routes);
         // console.log(routes[path]);
-        navigateToSectionWithId(PATH_TO_ID[path]);
-     return routes[path];
+        // navigateToSectionWithId(PATH_TO_ID[path]);
+     return routes[path]();
     } catch (error) {
         throw new Error("The route is not defined");
         return routes["/"];
@@ -178,6 +182,7 @@ let resolveRoute = (path) => {
 let router = (evt) => {
     console.log('in router');
     const url = window.location.hash.slice(1) || "/";
+    document.getElementById(CONTENT_ID).innerHTML = "";
     resolveRoute(url);
     console.log('route: ' + url);
 };
@@ -290,7 +295,9 @@ let loadPage = (evt) => {
             const hamburger = document.createElement('label');
             hamburger.id = "hamburger";
             hamburger.setAttribute("for", "toggle");
-            hamburger.append('&#9776');
+            const icon = document.createElement("i");
+            icon.setAttribute("class", "fas fa-bars");
+            hamburger.append(icon);
             navbar.append(hamburger);
             const headerElement = document.createElement('div');
             headerElement.id = "nav-header";
