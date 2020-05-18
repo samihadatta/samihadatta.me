@@ -30,6 +30,10 @@
         {
             "link": "https://github.com/samihadatta",
             "icon": "fab fa-github"
+        },
+        {
+            "link": "mailto:samiha.datta.23@dartmouth.edu",
+            "icon": "fas fa-envelope"
         }
     ],
     "sections": [
@@ -179,9 +183,7 @@
                 "header",
                 "items"
             ],
-            "text" : [
-                "I'm interested in computer science, human-centered design, and linguistics!"
-            ]
+            "text" : "I'm a '23 at Dartmouth College from Newton, MA. \nI'm currently studying computer science, human-centered design, and linguistics. \nI'm proficient in Java, Python, "
         }
     ]
 

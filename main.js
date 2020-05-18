@@ -5,6 +5,17 @@ const CONTENT_ID = "content";
 const FOOTER_ID = "footer";
 let PATH_TO_ID = {};
 
+function containsClass(element, className) {
+    let classes = element.getAttribute("class");
+    classes = classes.split(" ");
+    for (let currentClass of classes) {
+        if (currentClass === className) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function navigateToSectionWithId(sectionId) {
     const url = "/"+sectionId;
     history.pushState(
@@ -53,9 +64,6 @@ function isAdjustmentClass(classToCheck) {
     return false;
 }
 
-
-// rewrite this logic!!!
-
 function getSectionClass(el) {
     let classes = element.getAttribute("class");
     classes = classes.split(" ");
@@ -89,13 +97,6 @@ let templates = {};
 
 // Register a template (this is to mimic a template engine)
 let template = (section, templateFunction) => {
-    // console.log('in template function');
-    // console.log('section');
-    // console.log(section);
-    // console.log('section id');
-    // console.log(section.id);
-    // console.log('function');
-    // console.log(templateFunction);
   return templates[section.id] = () => { templateFunction(section) };
 };
 
@@ -103,9 +104,6 @@ let template = (section, templateFunction) => {
 // when entering that path. A template can be a string (file name), or a function that
 // will directly create the DOM objects.
 let route = (path, template) => {
-    console.log('in route');
-    console.log(path);
-    console.log(template);
     if (typeof template == "function") {
       return routes[path] = template;
     }
@@ -116,32 +114,7 @@ let route = (path, template) => {
       return;
     }
 };
-// // Register the templates.
-// template('template1', () => {
-//     let myDiv = document.getElementById(appDiv);
-//     myDiv.innerHTML = "";
-//     const link1 = createLink('view1', 'Go to view1', '#/view1');
-//     const link2 = createLink('view2', 'Go to view2', '#/view2');
-//     myDiv.appendChild(link1);
-//     return myDiv.appendChild(link2);
-// });
-// template('template-view1', () => {
-//     let myDiv = document.getElementById(appDiv);
-//     myDiv.innerHTML = "";
-//     const link1 = createDiv('view1', "<div><h1>This is View 1 </h1><a href='#/'>Go Back to Index</a></div>");
-//     return myDiv.appendChild(link1);
-// });
-// template('template-view2', () => {
-//     let myDiv = document.getElementById(appDiv);
-//     myDiv.innerHTML = "";
-//     const link2 = createDiv('view2', "<div><h1>This is View 2 </h1><a href='#/'>Go Back to Index</a></div>");
-//     return myDiv.appendChild(link2);
-// });
-// // Define the mappings route->template.
-// route('/', 'template1');
-// route('/view1', 'template-view1');
-// route('/view2', 'template-view2');
-// console.log('routes should be defined');
+
 // Generate DOM tree from a string
 let createDiv = (id, xmlString) => {
     let d = document.createElement('div');
@@ -168,13 +141,9 @@ let resolveRoute = (path) => {
     console.log("spot");
     console.log(routes[path]);
     try {
-        // console.log('in try');
-        // console.log(routes);
-        // console.log(routes[path]);
-        // navigateToSectionWithId(PATH_TO_ID[path]);
      return routes[path]();
     } catch (error) {
-        throw new Error("The route is not defined");
+        // throw new Error("The route is not defined");
         return routes["/"];
     }
 };
@@ -285,26 +254,42 @@ let templateTemplate = (section) => {
 let loadPage = (evt) => {
     fetch('data.json')
     .then((response) => {
-        // if (xobj.readyState == 4 && xobj.status == "200") {
-        //     const data = JSON.parse(xobj.responseText);
             const data = response.json().then((data) => {
-                console.log(data);
-                            // load nav bar
+            
+            // load nav bar
             let navbar = document.getElementById(NAV_ID);
             navbar.innerHTML = "";
+            let navHeaderContainer = document.createElement("div");
+            navHeaderContainer.id = "nav-header-container";
             const hamburger = document.createElement('label');
             hamburger.id = "hamburger";
             hamburger.setAttribute("for", "toggle");
+            // hamburger.onclick = function() {
+            //     let navItems = document.getElementById("nav-items");
+            //     const display = getComputedStyle(navItems).display;
+            //     if (display === "none") {
+            //         navItems.style.display = "flex";
+            //     } else if (display === "flex") {
+            //         navItems.style.display = "none";
+            //     }
+            // }
             const icon = document.createElement("i");
             icon.setAttribute("class", "fas fa-bars");
             hamburger.append(icon);
-            navbar.append(hamburger);
+            navHeaderContainer.append(hamburger);
             const headerElement = document.createElement('div');
             headerElement.id = "nav-header";
             const headerLink = createLink(data.title, data.title, '/');
             headerElement.append(headerLink);
-            navbar.append(headerElement);
+            navHeaderContainer.append(headerElement);
+            navbar.append(navHeaderContainer);
             console.log(navbar);
+            
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = "toggle";
+            navbar.append(checkbox);
+
             const navItems = document.createElement('div');
             navItems.id = "nav-items";
             for (let navItem of data.nav) {
@@ -379,6 +364,7 @@ let loadPage = (evt) => {
                     // now the rest of the page items: links or items
                     if ("items" in section) {
                         const itemsDiv = document.createElement("div");
+                        itemsDiv.setAttribute("class", "items");
                         for (let item of section.items) {
                             const itemDiv = document.createElement("div");
                             itemDiv.setAttribute("class", section.style.item);

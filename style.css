@@ -13,6 +13,15 @@ nav {
 
 a {
     text-decoration: none;
+    color: black;
+}
+
+#nav-header-container {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 }
 
 #nav-header {
@@ -43,6 +52,7 @@ a {
 
 #text-div {
     width: 50%;
+    padding: 1rem;
 }
 
 #footer {
@@ -52,6 +62,25 @@ a {
     align-self: center;
     justify-content: space-evenly;
     margin: 1.5rem;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    align-self: center;
+    padding: 1rem;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+    border-radius: 1rem;
+    padding: 0.75rem;
 }
 
 .tech, .timeline {
@@ -72,7 +101,7 @@ a {
     display: none;
 }
 
-.fab {
+.fab, .fas {
     font-size: 2rem;
 }
 
@@ -138,32 +167,28 @@ a {
         align-items: center;
     }
 
-    #nav-head-container > input[type=checkbox]:checked + #nav-items-v {
-        display: flex;
-    }
-
-    #toggle:checked {
+    #toggle:checked + #nav-items {
         display: flex;
     }
     
     #nav-items {
-        display: flex;
+        display: none;
+        flex-direction: column;
+    }
+
+    #nav-header {
+        margin-left: 1rem;
+    }
+
+    #top-div {
         flex-direction: column;
     }
 }
 
 /* for hamburger menu */
 @media only screen and (min-width: 640px) {
-    #nav-items-h {
+    #nav-items {
         display: flex;
         flex-direction: row;
-    }
-}
-
-/* for footer and home section */
-@media only screen and (max-width: 850px) {
-    #footer {
-        flex-direction: column;
-        align-items: center;
     }
 }
