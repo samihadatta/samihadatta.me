@@ -3,8 +3,8 @@ body, html {
     /* display: flex; */
     flex-direction: column;
     font-family: "Titillium Web";
-    background-color: #F9F1F2;
-    color: #AA1F27;
+    background-color: #F1F0F0;
+    color: 343333;
 }
 
 nav {
@@ -12,8 +12,10 @@ nav {
    flex-direction: row;
    justify-content: space-between;
    padding: 0.5rem;
-   padding-left: 1rem;
-   padding-right: 1rem;
+   /* padding-left: 1rem;
+   padding-right: 1rem; */
+   margin-right: 0;
+   width: 100%;
 }
 
 a {
@@ -22,8 +24,12 @@ a {
 }
 
 img {
-    width: 50%;
+    height: 50vh;
     margin: auto;
+}
+
+.link > img {
+    height: auto;
 }
 
 #text-div {
@@ -95,7 +101,8 @@ img {
 }
 
 #main-image {
-    max-width: 50%;
+    width: 50%;
+    height: auto;
     /* height: 100px; */
 }
 
@@ -144,7 +151,7 @@ img {
     justify-content: center;
     align-items: center;
     background-color: #AA1F27;
-    color: #F9F1F2;
+    color: #F1F0F0;
     border-radius: 1rem;
     /* padding: 0.3rem; */
     width: 30%;
@@ -157,8 +164,12 @@ img {
     background-color: #D62530;
 }
 
+.link > img {
+    width: 90%;
+}
+
 .link > .icon {
-    color: #F9F1F2;
+    color: #F1F0F0;
 }
 
 .tech, .timeline {
@@ -181,7 +192,7 @@ img {
 
 .fab, .fas {
     font-size: 2rem;
-    color: #F9F1F2;
+    color: #F1F0F0;
 }
 
 .contact-links {
@@ -202,6 +213,10 @@ img {
 
 .nav-item:hover, a:hover, .button:hover {
     cursor: pointer;
+}
+
+.nav-item:hover {
+    background-color: #D62530;
 }
 
 .button {
@@ -234,6 +249,10 @@ img {
     text-align: center;
 }
 
+.icon:hover {
+    color: #D62530;
+}
+
 
 
 /* .project {
@@ -246,8 +265,12 @@ img {
     width: 100%;
 }
 
+#about > #top-div {
+    margin-bottom: 2rem;
+}
+
 #nav-items > a, #nav-header > a {
-    color: #F9F1F2;
+    color: #F1F0F0;
     font-weight: 800;
 }
 
@@ -340,6 +363,7 @@ img {
         align-self: center;
         margin: auto;
         width: 80%;
+        height: auto;
     }
 }
 

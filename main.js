@@ -269,7 +269,7 @@ let loadPage = (evt) => {
                         image.id = "main-image";
                         image.src = section.image;
                 
-                        if ("toparrange" === "image-first") {
+                        if (section === "image-first") {
                             topDiv.append(image);
                             topDiv.append(textDiv);
                         } else { // if "toparrange" === "image-second"

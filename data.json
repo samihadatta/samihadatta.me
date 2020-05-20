@@ -198,7 +198,8 @@
                 "header",
                 "items"
             ],
-            "text" : "I'm a '23 at Dartmouth College from Newton, MA. \nI'm currently studying computer science, human-centered design, and linguistics. I'm extremely interested in tech for social good.\nI'm proficient in JavaScript, Java, Python, C, React Native, HTML, CSS, REST APIs, Express, and MongoDB, and I've dabbled in Swift and with Firebase, too!\nWhen I'm not coding, you can find me dancing, writing, or reading!\nFun fact: I'm clumsy enough to fall up the stairs at least once every week, but I'm agile enough to dance while balancing on the rim of a brass plate!",
+            "image": "img/about.JPG",
+            "subheader": "I'm a '23 at Dartmouth College from Newton, MA. \nI'm currently studying computer science, human-centered design, and linguistics. I'm extremely interested in tech for social good.\nI'm proficient in JavaScript, Java, Python, C, React Native, HTML, CSS, REST APIs, Express, and MongoDB, and I've dabbled in Swift and with Firebase, too!\nWhen I'm not coding, you can find me dancing, writing, or reading!\nFun fact: I'm clumsy enough to fall up the stairs at least once every week, but I'm agile enough to dance while balancing on the rim of a brass plate!",
             "file": "img/Samiha_Datta_Resume_(May_2020).pdf"
         }
     ]
