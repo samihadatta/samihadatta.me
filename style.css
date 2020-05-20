@@ -1,6 +1,6 @@
 body, html {
     margin: auto;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     font-family: "Titillium Web";
     background-color: #F9F1F2;
@@ -79,13 +79,14 @@ img {
 #footer {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 100%;
     align-self: center;
     justify-content: space-evenly;
     margin: auto;
-    padding: 2rem;
-    padding-right: 10%;
-    padding-left: 10%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-right: 2rem;
+    margin: 0;
     background-color: #AA1F27;
 }
 
@@ -222,6 +223,19 @@ img {
     padding: 0 0.5rem 0;
 }
 
+#item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.textinfo > h1, .textinfo > h2, .textinfo > h3, .textinfo > h4, .textinfo > p {
+    text-align: center;
+}
+
+
+
 /* .project {
     
 } */
@@ -229,11 +243,19 @@ img {
 #navbar {
     background-color: #AA1F27;
     align-items: center;
+    width: 100%;
 }
 
 #nav-items > a, #nav-header > a {
     color: #F9F1F2;
     font-weight: 800;
+}
+
+.text-info {
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 @media only screen and (max-width: 640px) {
@@ -246,9 +268,10 @@ img {
         flex-direction: column;
         height: 100%;
         padding: none;
-        width: 100%;
+        /* width: 100%; */
         justify-content: center;
         align-items: center;
+        display: flex;
     }
 
     #toggle:checked + #nav-items {
