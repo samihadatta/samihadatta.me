@@ -1,2 +1,2 @@
 # samihadatta.me
-This website — located at [samihadatta.me](samihadatta.me) — was created for Short Assignment #1 of CS 52.
+Welcome to my personal website! I created this using pure HTML, CSS, and JavaScript. I wrote my own frontend framework and implemented routing and reading in data to make this a single-page app!
