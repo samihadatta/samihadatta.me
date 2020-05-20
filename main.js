@@ -140,6 +140,7 @@ let resolveRoute = (path) => {
     console.log(routes);
     console.log("spot");
     console.log(routes[path]);
+    window.scrollTo(0,0);
     try {
      return routes[path]();
     } catch (error) {
@@ -156,101 +157,6 @@ let router = (evt) => {
     console.log('route: ' + url);
 };
 
-let templateTemplate = (section) => {
-    console.log("SECTION inside");
-    console.log(section);
-    let contentDiv = document.createElement(section.id);
-    contentDiv.innerHTML = "";
-    let topDiv = document.createElement("div");
-    topDiv.setAttribute("id", "top-div");
-    let textDiv = document.createElement("div");
-    textDiv.setAttribute("id", "text-div");
-    if ("header" in section) {
-        const header = document.createElement("h1");
-        header.innerText = section.header;
-        textDiv.append(header);
-    }
-    if ("subheader" in section) {
-        const subheader = document.createElement("h2");
-        subheader.innerText = section.subheader;
-        textDiv.append(subheader);
-    }
-    if ("image" in section) {
-        const image = document.createElement("img");
-        image.src = section.image;
-
-        if ("toparrange" === "image-first") {
-            topDiv.append(image);
-            topDiv.append(textDiv);
-        } else { // if "toparrange" === "image-second"
-            topDiv.append(textDiv);
-            topDiv.append(image);
-        }
-        contentDiv.append(topDiv);
-    } else {
-        topDiv.append(textDiv);
-        contentDiv.append(topDiv);
-    }
-
-    // now the rest of the page items: links or items
-    if ("items" in section) {
-        const itemsDiv = document.createElement("div");
-        for (let item of section.items) {
-            const itemDiv = document.createElement("div");
-            itemDiv.setAttribute("id", section.id);
-            const title = document.createElement("h2");
-            title.setAttribute("class", section.id + "-header");
-            title.innerText = item.title;
-            itemDiv.append(title);
-
-            const info = document.createElement("div");
-            info.setAttribute("class", section.id + "-info");
-            const timeline = document.createElement("h3");
-            timeline.innerText = item.timeline;
-            timeline.setAttribute("class", "timeline");
-            info.append(timeline);
-            const tech = document.createElement("h3");
-            tech.innerText = item.tech;
-            tech.setAttribute("class", "tech");
-            info.append(tech);
-            const description = document.createElement("p");
-            description.innerText = item.description;
-            info.append(description);
-            const image = document.createElement("img");
-            image.src = item.image;
-            info.append(image);
-
-            itemDiv.append(info);
-
-            itemsDiv.append(itemDiv);
-        }
-        contentDiv.append(itemsDiv);
-        return contentDiv;
-    }
-
-    if ("links" in section) {
-        console.log('we have some links!');
-        const linksDiv = document.createElement("div");
-        linksDiv.setAttribute("class", "links");
-        for (let link of section.links) {
-            const linkDiv = document.createElement("a");
-            linkDiv.href = "/#" + link.link;
-            linkDiv.setAttribute("class", "link");
-            const name = document.createElement("h4");
-            name.innerText = link.name;
-            linkDiv.append(name);
-            const img = document.createElement("img");
-            img.src = link.img;
-            linkDiv.append(img);
-            linksDiv.append(linkDiv);
-        }
-        console.log(linksDiv);
-        contentDiv.append(linksDiv);
-    }
-    let containerDiv = document.getElementById("container");
-    containerDiv.appendChild(contentDiv);
-}
-
 let loadPage = (evt) => {
     fetch('data.json')
     .then((response) => {
@@ -264,15 +170,6 @@ let loadPage = (evt) => {
             const hamburger = document.createElement('label');
             hamburger.id = "hamburger";
             hamburger.setAttribute("for", "toggle");
-            // hamburger.onclick = function() {
-            //     let navItems = document.getElementById("nav-items");
-            //     const display = getComputedStyle(navItems).display;
-            //     if (display === "none") {
-            //         navItems.style.display = "flex";
-            //     } else if (display === "flex") {
-            //         navItems.style.display = "none";
-            //     }
-            // }
             const icon = document.createElement("i");
             icon.setAttribute("class", "fas fa-bars");
             hamburger.append(icon);
@@ -296,6 +193,9 @@ let loadPage = (evt) => {
                 const link = createLink(navItem.title, navItem.title, "/#"+navItem.link);
                 link.setAttribute('class', 'nav-item');
                 link.id = navItem.section + "-tab";
+                link.onclick = () => {
+                    document.getElementById("toggle").checked = false;
+                }
                 navItems.append(link);
             }
             navbar.append(navItems);
@@ -325,8 +225,8 @@ let loadPage = (evt) => {
                 // console.log(sectionLoop);
                 PATH_TO_ID[sectionLoop.link] = sectionLoop.id;
                 template(sectionLoop, (section) => {
-                    console.log("SECTION inside");
                     console.log(section);
+                    let linksAdded = false;
                     let contentDiv = document.createElement("div");
                     contentDiv.setAttribute("id", section.id);
                     contentDiv.innerHTML = "";
@@ -344,8 +244,29 @@ let loadPage = (evt) => {
                         subheader.innerText = section.subheader;
                         textDiv.append(subheader);
                     }
+                    if ("links" in section && "links" in section.style && section.style.links === "links-in-textdiv") {
+                        linksAdded = true;
+                        const linksDiv = document.createElement("div");
+                        linksDiv.id = "topLinks";
+                        linksDiv.setAttribute("class", "links");
+                        for (let link of section.links) {
+                            const linkDiv = document.createElement("a");
+                            linkDiv.href = "/#" + link.link;
+                            linkDiv.setAttribute("class", "link");
+                            const name = document.createElement("h4");
+                            name.innerText = link.name;
+                            linkDiv.append(name);
+                            const img = document.createElement("img");
+                            img.src = link.img;
+                            linkDiv.append(img);
+                            linksDiv.append(linkDiv);
+                        }
+                        console.log(linksDiv);
+                        textDiv.append(linksDiv);
+                    }
                     if ("image" in section) {
                         const image = document.createElement("img");
+                        image.id = "main-image";
                         image.src = section.image;
                 
                         if ("toparrange" === "image-first") {
@@ -357,24 +278,32 @@ let loadPage = (evt) => {
                         }
                         contentDiv.append(topDiv);
                     } else {
+                        textDiv.style.width = "100%";
                         topDiv.append(textDiv);
                         contentDiv.append(topDiv);
                     }
                 
-                    // now the rest of the page items: links or items
+                    // now the rest of the page items: links, items, or text
                     if ("items" in section) {
                         const itemsDiv = document.createElement("div");
                         itemsDiv.setAttribute("class", "items");
+                        let itemNumber = 0;
                         for (let item of section.items) {
                             const itemDiv = document.createElement("div");
-                            itemDiv.setAttribute("class", section.style.item);
+                            itemDiv.setAttribute("class", section.style.item + " item");
+                            if (itemNumber % 2 !== 0) {
+                                itemDiv.style.flexDirection = "row-reverse";
+                            }
                             const title = document.createElement("h2");
                             title.setAttribute("class", section.id + "-header");
                             title.innerText = item.title;
-                            itemDiv.append(title);
+                            // itemDiv.append(title);
                 
                             const info = document.createElement("div");
-                            info.setAttribute("class", section.id + "-info");
+                            info.setAttribute("class", section.id + " textinfo");
+                            info.append(title);
+                            // const textinfo = document.createElement("div");
+                            // textinfo.setAttribute("class", "textinfo");
                             const timeline = document.createElement("h3");
                             timeline.innerText = item.timeline;
                             timeline.setAttribute("class", "timeline");
@@ -386,13 +315,17 @@ let loadPage = (evt) => {
                             const description = document.createElement("p");
                             description.innerText = item.description;
                             info.append(description);
-                            const image = document.createElement("img");
-                            image.src = item.image;
-                            info.append(image);
-                
+                            // info.append(textinfo);
                             itemDiv.append(info);
+                            const image = document.createElement("img");
+                            image.id = "item-img";
+                            image.src = item.image;
+                            itemDiv.append(image);
+
+                            // itemDiv.append(info);
                 
                             itemsDiv.append(itemDiv);
+                            itemNumber += 1;
                         }
                         contentDiv.append(itemsDiv);
                     }
@@ -400,6 +333,9 @@ let loadPage = (evt) => {
                     if ("links" in section) {
                         console.log('we have some links!');
                         const linksDiv = document.createElement("div");
+                        if (linksAdded) {
+                            linksDiv.id = "lowerLinks";
+                        }
                         linksDiv.setAttribute("class", "links");
                         for (let link of section.links) {
                             const linkDiv = document.createElement("a");
@@ -416,6 +352,33 @@ let loadPage = (evt) => {
                         console.log(linksDiv);
                         contentDiv.append(linksDiv);
                     }
+
+                    if ("text" in section) {
+                        const textSectionDiv = document.createElement("div");
+                        textSectionDiv.setAttribute("class", "text");
+                        let text = section.text;
+                        text = text.split("\n");
+                        for (let paragraph of text) {
+                            let paragraphElement = document.createElement("p");
+                            paragraphElement.innerText = paragraph;
+                            paragraphElement.setAttribute("class", "text-paragraph");
+                            textSectionDiv.append(paragraphElement);
+                        }
+                        contentDiv.append(textSectionDiv);
+                    }
+
+                    if ("file" in section) {
+                        const fileSectionDiv = document.createElement("div");
+                        fileSectionDiv.setAttribute("class", "file");
+                        const file = document.createElement("iframe");
+                        file.src = section.file;
+                        file.width = "95%";
+                        file.height="95%";
+                        file.alt = "This browser does not support PDFs :( Please email me for a link to view it!";
+                        fileSectionDiv.append(file);
+                        contentDiv.append(fileSectionDiv);
+                    }
+
                     let containerDiv = document.getElementById(CONTENT_ID);
                     containerDiv.append(contentDiv);
                 });

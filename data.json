@@ -55,49 +55,49 @@
                     "timeline": "December 2019 - present",
                     "tech": "React Native, React",
                     "description": "An app and website to educate Dartmouth students on personal finance by meal plan management guidance. Features real-time updating through Dartmouth ITC. A collaboration between the Women in Science Project and the DALI Lab.",
-                    "image": "img/squidward.gif"
+                    "image": "img/fineance.png"
                 },
                 {
                     "title": "GreenTrace",
                     "timeline": "May 2020 - present",
                     "tech": "React Native, React",
                     "description": "Contact tracing and notification system for Dartmouth College. Final project for CS52: Full-Stack Web Development.",
-                    "image": "img/squidward.gif"
+                    "image": "https://techcrunch.com/wp-content/uploads/2020/04/contact-tracing-api-google-apple4.jpg?w=730&crop=1"
                 },
                 {
                     "title": "IPA Picker",
                     "timeline": "April 2020 - present",
                     "tech": "HTML, CSS, JavaScript",
                     "description": "International Phonetic Alphabet character picker for phonetic transcription. Useful for linguistics.",
-                    "image": "img/squidward.gif"
+                    "image": "img/ipa_chart.png"
                 },
                 {
                     "title": "Full-Stack Blog",
                     "timeline": "May 2020",
                     "tech": "React, Redux, Express, MongoDB",
                     "description": "Full-stack blog created with React, Redux, Express, and MongoDB. Includes comments, search functionality, and authentication. Created for CS52: Full-Stack Web Development.",
-                    "image": "img/squidward.gif"
+                    "image": "img/fullstack_blog.png"
                 },
                 {
                     "title": "React Notes",
                     "timeline": "April 2020",
                     "tech": "React, Firebase",
                     "description": "Collaborative note board featuring real-time editing, optional authentication, and the ability to create, update, and delete posts. Created for CS52: Full-Stack Web Development.",
-                    "image": "img/squidward.gif"
+                    "image": "img/fire_notes.png"
                 },
                 {
                     "title": "Tiny Search Engine",
                     "timeline": "February 2020",
                     "tech": "C",
                     "description": "Command-line search engine in C. Consists of a crawler, an indexer, and a querier (using keyword matching to rank pages). Created for CS50: Software Design and Implementation.",
-                    "image": "img/squidward.gif"
+                    "image": "img/tse.png"
                 },
                 {
                     "title": "Mudras",
                     "timeline": "March 2019 - June 2019",
                     "tech": "Swift",
                     "description": "iOS application to teach Indian classical dance students necessary hand gestures (mudras).",
-                    "image": "img/squidward.gif"
+                    "image": "img/mudras.png"
                 }
             ]
         },
@@ -107,7 +107,8 @@
             "link": "/",
             "style": {
                 "item": "home-button",
-                "type": "description image links"
+                "type": "description image links",
+                "links": "links-in-textdiv"
             },
             "attributes": [
                 "header",
@@ -115,7 +116,7 @@
                 "links"
             ],
             "subheader": "I'm a '23 at Dartmouth College from Newton, MA. I'm interested in computer science, human-centered design, and linguistics.",
-            "image": "img/office.gif",
+            "image": "img/home-me.jpg",
             "toparrange": "image-first",
             "links": [
                 {
@@ -149,25 +150,39 @@
             ],
             "items" : [
                 {
-                    "title": "Man Numeric",
-                    "timeline": "June 2018 - August 2018",
-                    "tech": "Python, NumPy, Pandas",
-                    "description": "Internship at a quantitative financial firm. Environmental, Social, and Governance research; Alternative Risk Premia research; and programming a test quality alpha factor and unit tests.",
-                    "image": "img/squidward.gif"
-                },
-                {
-                    "title": "Triveni School of Dance",
-                    "timeline": "July 2017 - September 2019",
-                    "tech": "Bharatanatyam, Kuchipudi, Odissi",
-                    "description": "Taught three styles of Indian classical dance (Bharatanatyam, Kuchipudi, and Odissi) to dancers of ages four to sixty-four for six to twelve hours a week.",
-                    "image": "img/squidward.gif"
+                    "title": "Women in Science Project at the DALI Lab",
+                    "timeline": "January 2020 - present",
+                    "tech": "React Native, React",
+                    "description": "Building FINEance: an app and website to educate Dartmouth students on personal finance by meal plan management guidance. Features real-time updating through Dartmouth ITC.",
+                    "image": "img/wisp.jpg"
                 },
                 {
                     "title": "Dartmouth Academic Skills Center",
                     "timeline": "January 2020 - present",
                     "tech": "Java",
                     "description": "Peer academic tutor for CS 10: Object-Oriented Programming. Clarifying concepts and helping with labs.",
-                    "image": "img/squidward.gif"
+                    "image": "https://media-exp1.licdn.com/dms/image/C4E0BAQHErid_N_sz3w/company-logo_200_200/0?e=2159024400&v=beta&t=xCsCjPYn219Ddp-rnuBnLFVaME8Kk0lhZmaRb-BbllU"
+                },
+                {
+                    "title": "Man Numeric",
+                    "timeline": "June 2018 - August 2018",
+                    "tech": "Python, NumPy, Pandas",
+                    "description": "Internship at a quantitative financial firm. Environmental, Social, and Governance research; Alternative Risk Premia research; and programming a test quality alpha factor and unit tests.",
+                    "image": "https://i.pinimg.com/736x/17/3b/c5/173bc5119dd188f88d4a66752e7b1f3b.jpg"
+                },
+                {
+                    "title":"Newton Free Library",
+                    "timeline": "March 2018 - August 2018",
+                    "tech": "",
+                    "description": "Volunteered at local public library. Ran math club for children from kindergarten through second grade. Helped out with design, shelving, and activity planning in Children's Room.",
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/0/09/Newton_Public_Library%2C_Massachusetts.jpg"
+                },
+                {
+                    "title": "Triveni School of Dance",
+                    "timeline": "July 2017 - September 2019",
+                    "tech": "Bharatanatyam, Kuchipudi, Odissi",
+                    "description": "Taught three styles of Indian classical dance (Bharatanatyam, Kuchipudi, and Odissi) to dancers of ages four to sixty-four for six to twelve hours a week.",
+                    "image": "https://static.wixstatic.com/media/c95b77_7ce73ad5bf7d42738ba988e500cceb95.jpg/v1/fill/w_507,h_338,al_c,q_80,usm_0.66_1.00_0.01/c95b77_7ce73ad5bf7d42738ba988e500cceb95.webp"
                 }
             ]
         },
@@ -183,7 +198,8 @@
                 "header",
                 "items"
             ],
-            "text" : "I'm a '23 at Dartmouth College from Newton, MA. \nI'm currently studying computer science, human-centered design, and linguistics. \nI'm proficient in Java, Python, "
+            "text" : "I'm a '23 at Dartmouth College from Newton, MA. \nI'm currently studying computer science, human-centered design, and linguistics. I'm extremely interested in tech for social good.\nI'm proficient in JavaScript, Java, Python, C, React Native, HTML, CSS, REST APIs, Express, and MongoDB, and I've dabbled in Swift and with Firebase, too!\nWhen I'm not coding, you can find me dancing, writing, or reading!\nFun fact: I'm clumsy enough to fall up the stairs at least once every week, but I'm agile enough to dance while balancing on the rim of a brass plate!",
+            "file": "/img/Samiha_Datta_Resume_(May_2020).pdf"
         }
     ]
 

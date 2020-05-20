@@ -1,7 +1,10 @@
 body, html {
-    margin: 0;
+    margin: auto;
     display: flex;
     flex-direction: column;
+    font-family: "Titillium Web";
+    background-color: #F9F1F2;
+    color: #AA1F27;
 }
 
 nav {
@@ -9,11 +12,23 @@ nav {
    flex-direction: row;
    justify-content: space-between;
    padding: 0.5rem;
+   padding-left: 1rem;
+   padding-right: 1rem;
 }
 
 a {
     text-decoration: none;
     color: black;
+}
+
+img {
+    width: 50%;
+    margin: auto;
+}
+
+#text-div {
+    text-align: center;
+    width: 100%;
 }
 
 #nav-header-container {
@@ -24,9 +39,15 @@ a {
     align-items: center;
 }
 
-#nav-header {
+#nav-header > a {
     text-decoration: none;
+    font-family: "Dancing Script";
+    font-size: 2rem;
 }
+
+/* #nav-item {
+
+} */
 
 #hamburger {
     margin: 0 40 px 0 0;
@@ -61,7 +82,49 @@ a {
     width: 80%;
     align-self: center;
     justify-content: space-evenly;
-    margin: 1.5rem;
+    margin: auto;
+    padding: 2rem;
+    padding-right: 10%;
+    padding-left: 10%;
+    background-color: #AA1F27;
+}
+
+#content {
+    margin: 1rem;
+}
+
+#main-image {
+    max-width: 50%;
+    /* height: 100px; */
+}
+
+#text-div {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-self: center;
+}
+
+#lowerLinks {
+    display: none;
+}
+
+#content {
+    margin: auto;
+}
+
+.item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.text > p {
+    text-align: center;
+    font-size: medium;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .links {
@@ -71,6 +134,7 @@ a {
     width: 80%;
     align-self: center;
     padding: 1rem;
+    margin: auto;
 }
 
 .link {
@@ -78,9 +142,17 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
+    background-color: #AA1F27;
+    color: #F9F1F2;
     border-radius: 1rem;
-    padding: 0.75rem;
+    /* padding: 0.3rem; */
+    width: 30%;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.link > .icon {
+    color: #F9F1F2;
 }
 
 .tech, .timeline {
@@ -103,6 +175,7 @@ a {
 
 .fab, .fas {
     font-size: 2rem;
+    color: #F9F1F2;
 }
 
 .contact-links {
@@ -148,9 +221,15 @@ a {
     
 } */
 
-/* .navbar {
-    background-image: linear-gradient()
-} */
+#navbar {
+    background-color: #AA1F27;
+    align-items: center;
+}
+
+#nav-items > a, #nav-header > a {
+    color: #F9F1F2;
+    font-weight: 800;
+}
 
 @media only screen and (max-width: 640px) {
     #hamburger {
@@ -174,6 +253,7 @@ a {
     #nav-items {
         display: none;
         flex-direction: column;
+        margin: auto;
     }
 
     #nav-header {
@@ -182,6 +262,56 @@ a {
 
     #top-div {
         flex-direction: column;
+        margin: auto;
+    }
+
+    #main-image {
+        max-width: 80%;
+    }
+
+    #project {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        margin: auto;
+    }
+
+    #text-div {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        width: 90%;
+        margin: auto;
+    }
+
+    #item {
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    #topLinks {
+        display: none;
+    }
+
+    #lowerLinks {
+        display: flex;
+    }
+
+    #item-img {
+        align-self: center;
+    }
+
+    h1, h2, h3, h4, p {
+        text-align: center;
+        align-self: center;
+        margin: auto;
+    }
+
+    img, #project-info > img, #work-info > img {
+        align-self: center;
+        margin: auto;
+        width: 80%;
     }
 }
 
@@ -190,5 +320,13 @@ a {
     #nav-items {
         display: flex;
         flex-direction: row;
+    }
+
+    #topLinks {
+        display: flex;
+    }
+
+    #lowerLinks {
+        display: none;
     }
 }
